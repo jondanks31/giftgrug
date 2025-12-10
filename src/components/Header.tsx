@@ -12,12 +12,13 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-cave-dark/95 backdrop-blur-sm border-b border-stone-dark">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl">🦴</span>
-            <span className="font-grug text-xl text-sand">GIFTGRUG</span>
-            <span className="text-2xl">🦴</span>
+          {/* Logo - centered on mobile, left on desktop */}
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+            <span className="font-grug text-2xl md:text-xl text-sand">GIFTGRUG</span>
           </Link>
+
+          {/* Spacer for mobile centering */}
+          <div className="w-8 md:hidden" />
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6">
