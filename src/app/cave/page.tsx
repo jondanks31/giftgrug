@@ -8,7 +8,7 @@ import { AuthForm, useAuth } from '@/components/auth';
 import { uiText, recipientTypes, occasionTypes } from '@/lib/grug-dictionary';
 import { createClient } from '@/lib/supabase/client';
 import type { SpecialSun } from '@/lib/database.types';
-import { Calendar, Plus, Trash2, Bell, LogOut, Gift, Settings } from 'lucide-react';
+import { Calendar, Plus, Trash2, Bell, LogOut, Gift, Settings, Check, BellOff } from 'lucide-react';
 import Link from 'next/link';
 import { ProductAdmin } from '@/components/admin';
 
@@ -96,6 +96,37 @@ export default function CavePage() {
 
     if (!error) {
       setSpecialSuns(specialSuns.filter((sun) => sun.id !== id));
+    }
+  };
+
+  const handleToggleRemembered = async (id: string, currentValue: boolean) => {
+    const { error } = await supabase
+      .from('special_suns')
+      .update({
+        man_remembered: !currentValue,
+        man_remembered_at: !currentValue ? new Date().toISOString() : null,
+      })
+      .eq('id', id);
+
+    if (!error) {
+      setSpecialSuns(specialSuns.map((sun) =>
+        sun.id === id
+          ? { ...sun, man_remembered: !currentValue, man_remembered_at: !currentValue ? new Date().toISOString() : null }
+          : sun
+      ));
+    }
+  };
+
+  const handleToggle4DayReminder = async (id: string, currentValue: boolean) => {
+    const { error } = await supabase
+      .from('special_suns')
+      .update({ reminder_4_enabled: !currentValue })
+      .eq('id', id);
+
+    if (!error) {
+      setSpecialSuns(specialSuns.map((sun) =>
+        sun.id === id ? { ...sun, reminder_4_enabled: !currentValue } : sun
+      ));
     }
   };
 
@@ -345,35 +376,64 @@ export default function CavePage() {
               {specialSuns.map((sun) => {
                 const daysUntil = getDaysUntil(sun.date);
                 return (
-                  <Card key={sun.id} className="flex items-center justify-between">
-                    <div className="flex-grow">
-                      <p className="font-grug text-sand">
-                        {sun.name}'s {getGrugOccasion(sun.occasion_type)}
-                      </p>
-                      <p className="text-sm text-stone-light">
-                        {getGrugRecipient(sun.recipient_type)} • {new Date(sun.date).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className={`font-grug text-sm ${getUrgencyColor(daysUntil)}`}>
-                        {daysUntil} suns
-                      </span>
-                      <div className="flex items-center gap-1">
-                        <Link
-                          href={`/hunt?occasion=${sun.occasion_type}&recipient=${sun.recipient_type}`}
-                          className="p-2 text-stone-light hover:text-fire transition-colors"
-                          title="Hunt for gift"
-                        >
-                          <Gift className="w-4 h-4" />
-                        </Link>
-                        <button
-                          onClick={() => handleRemoveDate(sun.id)}
-                          className="p-2 text-stone-light hover:text-blood transition-colors"
-                          title="Remove"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                  <Card key={sun.id} className={sun.man_remembered ? 'opacity-60' : ''}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex-grow">
+                        <p className="font-grug text-sand flex items-center gap-2">
+                          {sun.man_remembered && <Check className="w-4 h-4 text-moss" />}
+                          {sun.name}'s {getGrugOccasion(sun.occasion_type)}
+                        </p>
+                        <p className="text-sm text-stone-light">
+                          {getGrugRecipient(sun.recipient_type)} • {new Date(sun.date).toLocaleDateString()}
+                        </p>
                       </div>
+                      <div className="flex items-center gap-4">
+                        <span className={`font-grug text-sm ${sun.man_remembered ? 'text-moss' : getUrgencyColor(daysUntil)}`}>
+                          {sun.man_remembered ? 'Done!' : `${daysUntil} suns`}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <Link
+                            href={`/hunt?occasion=${sun.occasion_type}&recipient=${sun.recipient_type}`}
+                            className="p-2 text-stone-light hover:text-fire transition-colors"
+                            title="Hunt for gift"
+                          >
+                            <Gift className="w-4 h-4" />
+                          </Link>
+                          <button
+                            onClick={() => handleRemoveDate(sun.id)}
+                            className="p-2 text-stone-light hover:text-blood transition-colors"
+                            title="Remove"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Reminder controls */}
+                    <div className="flex items-center gap-4 mt-3 pt-3 border-t border-stone-dark text-xs">
+                      <button
+                        onClick={() => handleToggleRemembered(sun.id, sun.man_remembered)}
+                        className={`flex items-center gap-1 px-2 py-1 rounded ${
+                          sun.man_remembered 
+                            ? 'bg-moss/20 text-moss-light' 
+                            : 'bg-stone-dark text-stone-light hover:text-sand'
+                        }`}
+                      >
+                        <Check className="w-3 h-3" />
+                        {sun.man_remembered ? 'Man Remembered!' : 'Mark as Remembered'}
+                      </button>
+                      <button
+                        onClick={() => handleToggle4DayReminder(sun.id, sun.reminder_4_enabled)}
+                        className={`flex items-center gap-1 px-2 py-1 rounded ${
+                          sun.reminder_4_enabled 
+                            ? 'bg-fire/20 text-fire-light' 
+                            : 'bg-stone-dark text-stone-light hover:text-sand'
+                        }`}
+                        title={sun.reminder_4_enabled ? 'Click to disable 4-day reminder' : 'Click to enable 4-day reminder'}
+                      >
+                        {sun.reminder_4_enabled ? <Bell className="w-3 h-3" /> : <BellOff className="w-3 h-3" />}
+                        4-sun reminder {sun.reminder_4_enabled ? 'on' : 'off'}
+                      </button>
                     </div>
                   </Card>
                 );

@@ -38,6 +38,12 @@ export interface SpecialSun {
   notes: string | null;
   created_at: string;
   updated_at: string;
+  // Reminder tracking
+  reminder_14_sent: boolean;
+  reminder_4_sent: boolean;
+  reminder_4_enabled: boolean;
+  man_remembered: boolean;
+  man_remembered_at: string | null;
 }
 
 export interface SavedProduct {
