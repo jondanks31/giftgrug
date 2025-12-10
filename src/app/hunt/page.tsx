@@ -264,7 +264,7 @@ function ProductCard({ product }: { product: ProductDisplay }) {
       <p className="text-sm text-stone-light mb-2">({product.realName})</p>
       
       {/* Grug Quote */}
-      <p className="font-scribble text-sand/80 text-sm italic mb-4 flex-grow">
+      <p className="font-grug-speech text-sand/80 text-sm mb-4 flex-grow">
         "{product.grugSays}"
       </p>
       

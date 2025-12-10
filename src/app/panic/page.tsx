@@ -47,7 +47,7 @@ export default function PanicPage() {
         <section className="max-w-2xl mx-auto mb-8">
           <Card className="bg-blood/10 border border-blood/30">
             <h2 className="font-grug text-lg text-sand mb-3">GRUG SURVIVAL TIPS:</h2>
-            <ul className="space-y-2 text-sand/80 font-scribble text-lg">
+            <ul className="space-y-2 text-sand/80 font-grug-speech text-base">
               <li>• Gift card NEVER wrong. Womanfolk pick own thing.</li>
               <li>• Flower arrive same day from many place.</li>
               <li>• Sweet brown rocks (chocolate) always safe.</li>
