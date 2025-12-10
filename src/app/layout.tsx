@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { DM_Sans, Caveat } from 'next/font/google';
+import { DM_Sans, Caveat, Comic_Neue } from 'next/font/google';
 import { AuthProvider } from '@/components/auth';
 import './globals.css';
 
@@ -11,6 +11,12 @@ const dmSans = DM_Sans({
 const caveat = Caveat({
   subsets: ['latin'],
   variable: '--font-scribble',
+});
+
+const comicNeue = Comic_Neue({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-grug-speech',
 });
 
 export const metadata: Metadata = {
@@ -76,7 +82,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${caveat.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${caveat.variable} ${comicNeue.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

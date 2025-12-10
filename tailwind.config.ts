@@ -49,7 +49,7 @@ const config: Config = {
         grug: ['Titan One', 'cursive'],
         body: ['DM Sans', 'sans-serif'],
         scribble: ['Caveat', 'cursive'],
-        'grug-speech': ['"Comic Sans MS"', '"Comic Sans"', '"Chalkboard SE"', '"Comic Neue"', 'cursive'],
+        'grug-speech': ['var(--font-grug-speech)', '"Comic Sans MS"', 'cursive'],
       },
       borderRadius: {
         stone: '12px',
