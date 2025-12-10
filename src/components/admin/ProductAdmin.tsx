@@ -5,9 +5,10 @@ import { createClient } from '@/lib/supabase/client';
 import { Button, Input, Card } from '@/components/ui';
 import { categories } from '@/lib/grug-dictionary';
 import type { Product } from '@/lib/database.types';
-import { Plus, Pencil, Trash2, X, Save, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, Pencil, Trash2, X, Save, ChevronDown, ChevronUp, Table, FileText } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
 import { CategoryAdmin } from './CategoryAdmin';
+import { BulkProductAdmin } from './BulkProductAdmin';
 
 const ASSOCIATE_ID = 'giftgrug-21';
 
@@ -51,6 +52,7 @@ export function ProductAdmin() {
   const [formData, setFormData] = useState<ProductFormData>(emptyForm);
   const [saving, setSaving] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
+  const [bulkMode, setBulkMode] = useState(false);
   const supabase = createClient();
 
   // Load products
@@ -182,12 +184,42 @@ export function ProductAdmin() {
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
           <h3 className="font-grug text-lg text-sand">🎁 Products</h3>
-          <Button onClick={() => { setShowForm(true); setEditingId(null); setFormData(emptyForm); }}>
-            <Plus className="w-4 h-4 mr-2" />
-            Add Thing
-          </Button>
+          <div className="flex items-center gap-3">
+            {/* Mode Toggle */}
+            <div className="flex items-center bg-cave-light rounded-stone p-1">
+              <button
+                onClick={() => setBulkMode(false)}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded text-sm transition-colors ${
+                  !bulkMode ? 'bg-fire text-cave-dark' : 'text-stone-light hover:text-sand'
+                }`}
+              >
+                <FileText className="w-4 h-4" />
+                Single
+              </button>
+              <button
+                onClick={() => setBulkMode(true)}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded text-sm transition-colors ${
+                  bulkMode ? 'bg-fire text-cave-dark' : 'text-stone-light hover:text-sand'
+                }`}
+              >
+                <Table className="w-4 h-4" />
+                Bulk
+              </button>
+            </div>
+            {!bulkMode && (
+              <Button onClick={() => { setShowForm(true); setEditingId(null); setFormData(emptyForm); }}>
+                <Plus className="w-4 h-4 mr-2" />
+                Add Thing
+              </Button>
+            )}
+          </div>
         </div>
 
+      {/* Bulk Mode */}
+      {bulkMode ? (
+        <BulkProductAdmin onComplete={() => { loadProducts(); setBulkMode(false); }} />
+      ) : (
+        <>
       {/* Product Form */}
       {showForm && (
         <Card className="p-6">
@@ -404,6 +436,8 @@ export function ProductAdmin() {
           </p>
         )}
       </div>
+        </>
+      )}
       </Card>
     </div>
   );
