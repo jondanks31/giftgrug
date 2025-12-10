@@ -107,13 +107,13 @@ export function BulkProductAdmin({ onComplete }: BulkProductAdminProps) {
   };
 
   // Validate a row
-  const validateRow = (row: BulkRow): string | null => {
+  const validateRow = (row: BulkRow): string | undefined => {
     if (!row.grug_name.trim()) return 'Grug name required';
     if (!row.real_name.trim()) return 'Real name required';
     if (!row.category) return 'Category required';
     if (!row.price || isNaN(parseFloat(row.price))) return 'Valid price required';
     if (!row.amazon_url.trim()) return 'Amazon URL required';
-    return null;
+    return undefined;
   };
 
   // Submit all rows
