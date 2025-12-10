@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Titan One font for Grug voice */
+.font-grug {
+  font-family: 'Titan One', cursive;
+}
+
+/* Custom scrollbar for cave aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1612;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3d3630;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5c554d;
+}
+
+/* Stone button effect */
+.btn-stone {
+  @apply relative overflow-hidden;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-stone:hover {
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+    0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn-stone:active {
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Fire glow for primary buttons */
+.btn-fire {
+  @apply bg-fire text-bone font-grug;
+  box-shadow: 0 4px 14px rgba(212, 98, 42, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.btn-fire:hover {
+  @apply bg-fire-light;
+  box-shadow: 0 6px 20px rgba(212, 98, 42, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+}
+
+/* Card hover effect */
+.card-stone {
+  @apply bg-stone-dark rounded-rock;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-stone:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Panic button pulse */
+@keyframes panic-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(139, 58, 58, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(139, 58, 58, 0);
+  }
+}
+
+.btn-panic {
+  @apply bg-blood text-bone font-grug;
+  animation: panic-pulse 2s infinite;
+}
+
+.btn-panic:hover {
+  @apply bg-blood-light;
+  animation: none;
+}
+
+/* Rough border effect using clip-path */
+.rough-edge {
+  clip-path: polygon(
+    0% 2%, 3% 0%, 7% 1%, 12% 0%, 18% 2%, 23% 0%, 28% 1%, 33% 0%, 38% 2%,
+    43% 0%, 48% 1%, 53% 0%, 58% 2%, 63% 0%, 68% 1%, 73% 0%, 78% 2%,
+    83% 0%, 88% 1%, 93% 0%, 97% 2%, 100% 0%,
+    100% 98%, 97% 100%, 93% 99%, 88% 100%, 83% 98%, 78% 100%, 73% 99%,
+    68% 100%, 63% 98%, 58% 100%, 53% 99%, 48% 100%, 43% 98%, 38% 100%,
+    33% 99%, 28% 100%, 23% 98%, 18% 100%, 12% 99%, 7% 100%, 3% 98%, 0% 100%
+  );
+}
+
+/* Input styling */
+.input-cave {
+  @apply bg-cave border-2 border-stone rounded-stone py-3 text-bone placeholder-stone-light;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  @apply focus:outline-none focus:border-fire focus:ring-2 focus:ring-fire/20;
+  @apply transition-all duration-200;
+}
+
+/* Input with left icon */
+.input-cave.pl-10,
+.input-cave.pl-12 {
+  padding-left: 2.75rem;
+}
+
+/* Input with right icon */
+.input-cave.pr-10,
+.input-cave.pr-12 {
+  padding-right: 2.75rem;
+}
+
+/* Slider styling */
+input[type='range'] {
+  @apply appearance-none bg-transparent w-full;
+}
+
+input[type='range']::-webkit-slider-track {
+  @apply h-3 rounded-full;
+  background: linear-gradient(to right, #3d3630, #5c554d);
+}
+
+input[type='range']::-webkit-slider-thumb {
+  @apply appearance-none w-6 h-6 rounded-full bg-sand cursor-pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  margin-top: -6px;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  @apply bg-sand-light;
+  transform: scale(1.1);
+}
+
+/* Category card */
+.category-card {
+  @apply card-stone p-4 flex flex-col items-center justify-center gap-2 cursor-pointer;
+  @apply hover:bg-stone transition-colors;
+}
+
+.category-card .emoji {
+  @apply text-3xl;
+}
+
+.category-card .name {
+  @apply font-grug text-sm text-center text-sand;
+}
+
+/* Ad card styling */
+.ad-card {
+  @apply card-stone border-2 border-dashed border-fire/30 p-4;
+}
+
+.ad-card::before {
+  content: '☝️';
+  @apply absolute -top-3 left-1/2 -translate-x-1/2 text-2xl;
+}

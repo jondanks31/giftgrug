@@ -1,0 +1,9 @@
+# GiftGrug Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://giftgrug.com/sitemap.xml
+
+# Block admin/auth pages from indexing
+Disallow: /cave
