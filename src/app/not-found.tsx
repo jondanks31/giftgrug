@@ -3,6 +3,8 @@ import { Header, MobileNav, GrugMascot } from '@/components';
 import { Button } from '@/components/ui';
 import { Home, Search } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default function NotFound() {
   return (
     <div className="min-h-screen pb-20 md:pb-0">

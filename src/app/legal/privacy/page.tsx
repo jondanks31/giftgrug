@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { Header, MobileNav } from '@/components';
 import { Card } from '@/components/ui';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Privacy Policy - GiftGrug',
   description: 'GiftGrug privacy policy - how we collect, use, and protect your data.',

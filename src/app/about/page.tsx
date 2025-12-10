@@ -4,6 +4,8 @@ import { Header, MobileNav, GrugMascot } from '@/components';
 import { Button, Card } from '@/components/ui';
 import { Heart, Gift, Clock, Sparkles } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'About GiftGrug - Our Story',
   description: 'GiftGrug helps clueless men find perfect gifts for the women in their lives. Simple, funny, actually useful.',

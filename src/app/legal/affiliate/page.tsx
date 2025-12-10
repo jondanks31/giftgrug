@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { Header, MobileNav } from '@/components';
 import { Card } from '@/components/ui';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Affiliate Disclosure - GiftGrug',
   description: 'GiftGrug affiliate disclosure and FTC compliance information.',
