@@ -77,7 +77,7 @@ export function MobileNav() {
   const { user } = useAuth();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cave-dark border-t border-stone-dark">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-cave-dark border-t border-stone-dark">
       <div className="flex items-center justify-around h-16">
         <MobileNavLink href="/" icon={<Home className="w-5 h-5" />} label="Home" />
         <MobileNavLink href="/hunt" icon={<Search className="w-5 h-5" />} label="Hunt" />
