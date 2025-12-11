@@ -45,7 +45,7 @@ export function GrugMascot({
         {quote && (
           <div className="relative bg-stone-dark rounded-rock p-4 max-w-xs">
             <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-stone-dark rotate-45" />
-            <p className="font-scribble text-lg text-sand text-center relative z-10">
+            <p className="font-grug-speech text-lg text-sand text-center relative z-10">
               "{quote}"
             </p>
           </div>

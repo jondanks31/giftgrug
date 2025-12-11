@@ -305,7 +305,7 @@ function AdCard() {
       </div>
       
       {/* Grug's comment on ads */}
-      <p className="font-scribble text-sand/60 text-sm italic">
+      <p className="font-grug-speech text-sand/60 text-sm">
         "Grug need shiny coins too. Man understand."
       </p>
     </Card>

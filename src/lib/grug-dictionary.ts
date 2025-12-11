@@ -246,7 +246,7 @@ export const uiText = {
   signupButton: 'Man Make Cave',
   
   // Footer
-  footerText: 'Grug help man since beginning of time (2024)',
+  footerText: 'Grug help man since beginning of time (2025)',
   
   // Ads / Affiliate disclosure
   affiliateDisclosure: 'Man click thing, thing give Grug shiny coins, Grug thank man, Grug buy Audi RS6',

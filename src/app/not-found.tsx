@@ -24,7 +24,7 @@ export default function NotFound() {
           GRUG LOST IN CAVE
         </h2>
         
-        <p className="font-scribble text-xl text-sand/80 mb-8 max-w-md mx-auto">
+        <p className="font-grug-speech text-xl text-sand/80 mb-8 max-w-md mx-auto">
           "Page man looking for not exist. Maybe sabertooth eat it. 
           Grug suggest go back to main cave."
         </p>

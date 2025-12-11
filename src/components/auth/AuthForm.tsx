@@ -124,13 +124,13 @@ export function AuthForm() {
 
       {error && (
         <div className="bg-blood/20 border border-blood rounded-stone p-3 mb-4">
-          <p className="text-blood text-sm font-scribble">{error}</p>
+          <p className="text-blood text-sm font-grug-speech">{error}</p>
         </div>
       )}
 
       {message && (
         <div className="bg-moss/20 border border-moss rounded-stone p-3 mb-4">
-          <p className="text-moss-light text-sm font-scribble">{message}</p>
+          <p className="text-moss-light text-sm font-grug-speech">{message}</p>
           <p className="text-moss-light/70 text-xs mt-2">
             After clicking magic rock, come back and{' '}
             <button 

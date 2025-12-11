@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Grug intro */}
         <Card className="mb-8 text-center">
-          <p className="font-scribble text-xl text-sand leading-relaxed">
+          <p className="font-grug-speech text-xl text-sand leading-relaxed">
             "Grug asked man in funny suit to give fancy words so Grug no get sued"
           </p>
           <p className="text-stone-light mt-2 text-sm">

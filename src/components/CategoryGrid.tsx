@@ -49,7 +49,7 @@ export function CategoryGrid({ className, priceRangeIndex = null }: CategoryGrid
   if (visibleCategories.length === 0) {
     return (
       <div className="text-center py-8 text-stone-light">
-        <p className="font-scribble text-lg">Grug preparing cave... come back soon!</p>
+        <p className="font-grug-speech text-lg">Grug preparing cave... come back soon!</p>
       </div>
     );
   }

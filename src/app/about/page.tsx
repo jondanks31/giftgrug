@@ -29,7 +29,7 @@ export default function AboutPage() {
         {/* Origin Story */}
         <Card className="mb-8">
           <h2 className="font-grug text-xl text-fire mb-4">WHY GRUG EXIST?</h2>
-          <div className="space-y-4 text-sand/90 font-scribble text-lg leading-relaxed">
+          <div className="space-y-4 text-sand/90 font-grug-speech text-lg leading-relaxed">
             <p>
               Once upon time, man forget womanfolk birthday. Man panic. Man google 
               "gifts for wife" at 11pm. Man find 47 listicles that all say same thing. 
@@ -104,7 +104,7 @@ export default function AboutPage() {
 
         {/* CTA */}
         <section className="text-center">
-          <p className="font-scribble text-xl text-sand mb-6">
+          <p className="font-grug-speech text-xl text-sand mb-6">
             "Enough talk. Man go find gift now. Womanfolk waiting."
           </p>
           <Link href="/hunt">

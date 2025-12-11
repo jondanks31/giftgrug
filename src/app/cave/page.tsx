@@ -354,7 +354,7 @@ export default function CavePage() {
           {/* List of Special Suns */}
           {loadingSuns ? (
             <Card className="text-center py-8">
-              <p className="text-stone-light font-scribble text-lg">
+              <p className="text-stone-light font-grug-speech text-lg">
                 Grug looking in cave...
               </p>
             </Card>
@@ -416,7 +416,7 @@ export default function CavePage() {
             </div>
           ) : (
             <Card className="text-center py-8">
-              <p className="text-stone-light font-scribble text-lg">
+              <p className="text-stone-light font-grug-speech text-lg">
                 No special suns yet. Add one so Grug remind man!
               </p>
             </Card>
