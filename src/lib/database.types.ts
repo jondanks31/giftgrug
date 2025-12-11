@@ -54,6 +54,33 @@ export interface SavedProduct {
   created_at: string;
 }
 
+// Wishlists - "Cave Paintings"
+export interface Wishlist {
+  id: string;
+  user_id: string;
+  name: string;
+  recipient_name: string | null;
+  share_token: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+// Wishlist items with voting
+export interface WishlistItem {
+  id: string;
+  wishlist_id: string;
+  product_id: string;
+  added_at: string;
+  vote: 'up' | 'down' | null;
+  voted_at: string | null;
+}
+
+// Extended wishlist item with product details (for display)
+export interface WishlistItemWithProduct extends WishlistItem {
+  product: Product;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -76,6 +103,16 @@ export interface Database {
         Row: Product;
         Insert: Omit<Product, 'id' | 'created_at' | 'updated_at'>;
         Update: Partial<Omit<Product, 'id' | 'created_at'>>;
+      };
+      wishlists: {
+        Row: Wishlist;
+        Insert: Omit<Wishlist, 'id' | 'share_token' | 'created_at' | 'updated_at'>;
+        Update: Partial<Omit<Wishlist, 'id' | 'user_id' | 'share_token' | 'created_at'>>;
+      };
+      wishlist_items: {
+        Row: WishlistItem;
+        Insert: Omit<WishlistItem, 'id' | 'added_at'>;
+        Update: Partial<Omit<WishlistItem, 'id' | 'wishlist_id' | 'product_id' | 'added_at'>>;
       };
     };
   };

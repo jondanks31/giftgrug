@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Header, MobileNav, GrugMascot, Footer } from '@/components';
+import { Header, MobileNav, GrugMascot, Footer, CavePaintings } from '@/components';
 import { Button, Card, Input } from '@/components/ui';
 import { AuthForm, useAuth } from '@/components/auth';
 import { uiText, recipientTypes, occasionTypes } from '@/lib/grug-dictionary';
@@ -421,6 +421,11 @@ export default function CavePage() {
               </p>
             </Card>
           )}
+        </section>
+
+        {/* Cave Paintings (Wishlists) */}
+        <section className="max-w-2xl mx-auto mt-12">
+          <CavePaintings />
         </section>
       </div>
 

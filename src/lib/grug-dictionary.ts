@@ -202,6 +202,55 @@ export const occasionTypes: OccasionType[] = [
   { id: 'just-because', grugName: 'Grug In Trouble', realName: 'Just Because / Apology' },
 ];
 
+// Wishlist / Cave Painting terminology
+export const wishlistText = {
+  // Names
+  wishlistName: 'Cave Painting',
+  wishlistNamePlural: 'Cave Paintings',
+  
+  // Actions
+  createWishlist: 'Make New Cave Painting',
+  saveToWishlist: 'GRUG REMEMBER THIS',
+  removeFromWishlist: 'Grug Forget This',
+  shareWishlist: 'Share Cave Painting',
+  deleteWishlist: 'Burn Cave Painting',
+  
+  // Voting
+  voteUp: 'Womanfolk Like!',
+  voteDown: 'Womanfolk No Want',
+  removeVote: 'Womanfolk Change Mind',
+  noVoteYet: 'Womanfolk Not Say Yet',
+  
+  // Status
+  votedUp: '👍 Womanfolk Like This!',
+  votedDown: '👎 Womanfolk No Want This',
+  
+  // Share page
+  sharePageTitle: 'Man Want Know What You Think',
+  sharePageSubtitle: 'Tap thumb up or thumb down. Man see what you pick.',
+  sharePageInstruction: 'Pick what you like. Man try not disappoint.',
+  thankYouVoted: 'Grug Tell Man What You Think!',
+  
+  // Cave page section
+  cavePaintingsHeading: 'Cave Paintings',
+  cavePaintingsEmpty: 'No cave paintings yet. Save things to make one!',
+  itemCount: 'things',
+  voteSummary: 'Womanfolk Opinion:',
+  
+  // Modals
+  selectWishlistTitle: 'Which Cave Painting?',
+  createNewOption: '+ Make New Cave Painting',
+  wishlistNameLabel: 'What Man Call This?',
+  recipientLabel: 'Who This For?',
+  
+  // Success messages
+  addedToWishlist: 'Grug remember this thing!',
+  removedFromWishlist: 'Grug forget this thing.',
+  wishlistCreated: 'New cave painting ready!',
+  wishlistDeleted: 'Cave painting burned.',
+  linkCopied: 'Link copied! Send to womanfolk.',
+};
+
 // UI Text translations
 export const uiText = {
   // Headers

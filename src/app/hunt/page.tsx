@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Header, MobileNav, GrugMascot, Footer } from '@/components';
+import { Header, MobileNav, GrugMascot, Footer, SaveToWishlist } from '@/components';
 import { Button, Card, Input, ProductGridSkeleton } from '@/components/ui';
 import { uiText, categories, getCategoryById, priceRanges } from '@/lib/grug-dictionary';
 import { 
@@ -267,11 +267,17 @@ function HuntContent() {
 function ProductCard({ product }: { product: ProductDisplay }) {
   return (
     <Card variant={product.isGrugPick ? 'featured' : 'default'} className="flex flex-col">
-      {product.isGrugPick && (
-        <div className="bg-fire/20 text-fire text-xs font-grug px-3 py-1 rounded-full self-start mb-3">
-          {uiText.grugPickLabel}
-        </div>
-      )}
+      {/* Top row: Grug Pick badge + Save button */}
+      <div className="flex items-center justify-between mb-3">
+        {product.isGrugPick ? (
+          <div className="bg-fire/20 text-fire text-xs font-grug px-3 py-1 rounded-full">
+            🗿 {uiText.grugPickLabel}
+          </div>
+        ) : (
+          <div /> 
+        )}
+        <SaveToWishlist productId={product.id} variant="icon" className="p-2 bg-stone-dark/50 rounded-full hover:bg-fire/20" />
+      </div>
       
       {/* Product Image */}
       <div className="bg-bone/95 rounded-stone h-48 flex items-center justify-center mb-4 overflow-hidden p-4">
@@ -294,13 +300,14 @@ function ProductCard({ product }: { product: ProductDisplay }) {
         "{product.grugSays}"
       </p>
       
-      {/* Price */}
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-stone-light text-sm">{uiText.priceLabel}</span>
-        <span className="font-grug text-fire">£{product.price}</span>
-        <span className="text-xs text-stone-light">
-          ({Array.from({ length: getPriceCoins(product.priceRange) }).map(() => '🪙').join('')})
-        </span>
+      {/* Price + Save row */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <span className="font-grug text-fire text-lg">£{product.price}</span>
+          <span className="text-xs text-stone-light">
+            {Array.from({ length: getPriceCoins(product.priceRange) }).map((_, i) => '🪙').join('')}
+          </span>
+        </div>
       </div>
       
       {/* CTA */}
