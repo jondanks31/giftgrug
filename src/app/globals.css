@@ -161,8 +161,3 @@ input[type='range']::-webkit-slider-thumb:hover {
 .ad-card {
   @apply card-stone border-2 border-dashed border-fire/30 p-4;
 }
-
-.ad-card::before {
-  content: '☝️';
-  @apply absolute -top-3 left-1/2 -translate-x-1/2 text-2xl;
-}

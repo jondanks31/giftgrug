@@ -174,18 +174,29 @@ function HuntContent() {
         {loading ? (
           <ProductGridSkeleton count={6} />
         ) : filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product, index) => (
-              <div key={product.id}>
-                <ProductCard product={product} />
-                {/* Insert ad after every 4 products */}
-                {(index + 1) % 4 === 0 && index < filteredProducts.length - 1 && (
-                  <div className="mt-6">
-                    <AdCard />
+          <div className="space-y-6">
+            {/* Split products into chunks of 6 for ad insertion */}
+            {(() => {
+              const chunks: typeof filteredProducts[] = [];
+              for (let i = 0; i < filteredProducts.length; i += 6) {
+                chunks.push(filteredProducts.slice(i, i + 6));
+              }
+              return chunks.map((chunk, chunkIndex) => (
+                <div key={chunkIndex}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {chunk.map((product) => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
                   </div>
-                )}
-              </div>
-            ))}
+                  {/* Show ad after each chunk except the last */}
+                  {chunkIndex < chunks.length - 1 && (
+                    <div className="mt-6">
+                      <AdCard />
+                    </div>
+                  )}
+                </div>
+              ));
+            })()}
           </div>
         ) : (
           <div className="text-center py-12">
