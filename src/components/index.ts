@@ -4,3 +4,4 @@ export { PanicButton } from './PanicButton';
 export { Header, MobileNav } from './Header';
 export { GrugMascot } from './GrugMascot';
 export { Footer } from './Footer';
+export { EzoicAd } from './EzoicAd';

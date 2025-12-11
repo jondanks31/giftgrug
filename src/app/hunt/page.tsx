@@ -18,6 +18,7 @@ import { ExternalLink, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 
+
 function HuntContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -51,6 +52,20 @@ function HuntContent() {
     }
     fetchEnabledCategories();
   }, []);
+
+  // Initialize Ezoic ads after products load
+  useEffect(() => {
+    if (!loading && typeof window !== 'undefined' && window.ezstandalone) {
+      // Destroy existing placeholders first (for SPA navigation)
+      window.ezstandalone.cmd.push(() => {
+        window.ezstandalone?.destroyPlaceholders?.(118);
+      });
+      // Then show ads
+      window.ezstandalone.cmd.push(() => {
+        window.ezstandalone?.showAds(118);
+      });
+    }
+  }, [loading, categoryId, query, priceParam]);
 
   // Fetch products based on category/query
   useEffect(() => {
@@ -306,17 +321,12 @@ function ProductCard({ product }: { product: ProductDisplay }) {
 
 function AdCard() {
   return (
-    <Card variant="ad" className="flex flex-col items-center justify-center text-center min-h-[300px]">
-      {/* Google AdSense container - paste your ad code here */}
-      <div className="w-full mb-4 min-h-[250px] flex items-center justify-center bg-cave/50 rounded-stone">
-        {/* Replace this placeholder with your AdSense code */}
-        <div className="text-stone-light text-sm">
-          [Ad Space - 300x250]
-        </div>
-      </div>
+    <Card variant="ad" className="flex flex-col items-center justify-center text-center py-4">
+      {/* Ezoic - mid_content */}
+      <div id="ezoic-pub-ad-placeholder-118" />
       
       {/* Grug's comment on ads */}
-      <p className="font-grug-speech text-sand/60 text-sm">
+      <p className="font-grug-speech text-sand/60 text-sm mt-2">
         "Grug need shiny coins too. Man understand."
       </p>
     </Card>
