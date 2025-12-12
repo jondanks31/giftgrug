@@ -84,19 +84,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${caveat.variable} ${comicNeue.variable}`}>
       <head>
-        {/* Ezoic Privacy Scripts - must load first */}
-        <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js" />
-        <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js" />
-        
-        {/* Ezoic Header Script */}
-        <script async src="//www.ezojs.com/ezoic/sa.min.js" />
+        {/* Google AdSense */}
         <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.ezstandalone = window.ezstandalone || {};
-              ezstandalone.cmd = ezstandalone.cmd || [];
-            `,
-          }}
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3395679465044318"
+          crossOrigin="anonymous"
         />
         
         <link rel="preconnect" href="https://fonts.googleapis.com" />

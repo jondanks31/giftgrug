@@ -53,19 +53,6 @@ function HuntContent() {
     fetchEnabledCategories();
   }, []);
 
-  // Initialize Ezoic ads after products load
-  useEffect(() => {
-    if (!loading && typeof window !== 'undefined' && window.ezstandalone) {
-      // Destroy existing placeholders first (for SPA navigation)
-      window.ezstandalone.cmd.push(() => {
-        window.ezstandalone?.destroyPlaceholders?.(118);
-      });
-      // Then show ads
-      window.ezstandalone.cmd.push(() => {
-        window.ezstandalone?.showAds(118);
-      });
-    }
-  }, [loading, categoryId, query, priceParam]);
 
   // Fetch products based on category/query
   useEffect(() => {
@@ -329,8 +316,10 @@ function ProductCard({ product }: { product: ProductDisplay }) {
 function AdCard() {
   return (
     <Card variant="ad" className="flex flex-col items-center justify-center text-center py-4">
-      {/* Ezoic - mid_content */}
-      <div id="ezoic-pub-ad-placeholder-118" />
+      {/* Ad placeholder - Google AdSense coming soon */}
+      <div id="ad-placeholder-mid-content" className="min-h-[90px] flex items-center justify-center">
+        <span className="text-stone-light/40 text-xs">Ad space</span>
+      </div>
       
       {/* Grug's comment on ads */}
       <p className="font-grug-speech text-sand/60 text-sm mt-2">
