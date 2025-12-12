@@ -6,6 +6,8 @@ import { createClient } from '@/lib/supabase/client';
 import { Button, Card, Input } from '@/components/ui';
 import type { ScribblesPost } from '@/lib/database.types';
 import { ScribblesImageUpload } from '@/components/admin/ScribblesImageUpload';
+import { ProductPicker } from '@/components/admin/ProductPicker';
+import { Pin, PinOff, Pencil, Trash2, ExternalLink, Package } from 'lucide-react';
 
 function slugify(input: string) {
   return input
@@ -128,6 +130,7 @@ export function ScribblesAdminClient() {
 
   const [posts, setPosts] = useState<ScribblesPost[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  const [showProductPicker, setShowProductPicker] = useState(false);
 
   async function loadPosts() {
     setLoadingPosts(true);
@@ -259,7 +262,7 @@ export function ScribblesAdminClient() {
 
           <div className="md:col-span-2">
             <label className="block text-sm text-stone-light mb-1">Content</label>
-            <div className="flex flex-wrap items-center gap-2 mb-2">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
               <ScribblesImageUpload
                 onUpload={(url) => {
                   insertAtEnd(`{{img:${url}}}`);
@@ -268,19 +271,16 @@ export function ScribblesAdminClient() {
 
               <button
                 type="button"
-                onClick={() => {
-                  const id = prompt('Paste product UUID to embed (from products table):');
-                  if (!id) return;
-                  insertAtEnd(`{{product:${id.trim()}}}`);
-                }}
-                className="inline-flex items-center gap-2 text-xs px-3 py-2 rounded-stone border border-stone-dark text-stone-light hover:text-sand hover:bg-stone-dark/40 cursor-pointer transition-colors"
+                onClick={() => setShowProductPicker(true)}
+                className="inline-flex items-center gap-2 text-xs px-3 py-2 rounded-stone border border-fire/40 text-fire hover:bg-fire/10 cursor-pointer transition-colors"
               >
-                + Embed Product
+                <Package className="w-4 h-4" />
+                Embed Product
               </button>
-              <p className="text-xs text-stone-light">
-                Best: put embeds on their own line (blank lines around).
-              </p>
             </div>
+            <p className="text-xs text-stone-light mb-2">
+              💡 Put images and products on their own line (blank lines around) for best results.
+            </p>
             <textarea
               className="input-cave w-full min-h-[220px] py-3"
               value={content}
@@ -328,53 +328,90 @@ export function ScribblesAdminClient() {
         ) : posts.length === 0 ? (
           <p className="text-stone-light">No scribbles in cave wall yet.</p>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {posts.map((p) => (
               <div
                 key={p.id}
-                className="flex items-center justify-between gap-3 bg-stone-dark/30 rounded-stone p-3"
+                className={`rounded-stone border transition-colors ${
+                  editingId === p.id
+                    ? 'border-fire bg-fire/5'
+                    : 'border-stone-dark/50 bg-stone-dark/20 hover:bg-stone-dark/30'
+                }`}
               >
-                <div className="min-w-0">
-                  <p className="font-grug text-sand text-sm truncate">{p.title}</p>
-                  <p className="text-xs text-stone-light truncate">/{p.slug}</p>
-                </div>
+                <div className="p-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        {p.pinned && (
+                          <span className="inline-flex items-center gap-1 text-xs bg-fire/20 text-fire px-2 py-0.5 rounded-full">
+                            <Pin className="w-3 h-3" />
+                            Pinned
+                          </span>
+                        )}
+                        {!p.is_published && (
+                          <span className="text-xs bg-stone-dark text-stone-light px-2 py-0.5 rounded-full">
+                            Draft
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="font-grug text-sand text-base truncate">{p.title}</h3>
+                      <p className="text-xs text-stone-light mt-1">/{p.slug}</p>
+                    </div>
 
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <button
-                    onClick={() => togglePinned(p)}
-                    className={`text-xs px-3 py-2 rounded-stone border transition-colors ${
-                      p.pinned
-                        ? 'border-fire text-fire hover:bg-fire/10'
-                        : 'border-stone-dark text-stone-light hover:text-sand hover:bg-stone-dark/40'
-                    }`}
-                  >
-                    {p.pinned ? 'Pinned' : 'Pin'}
-                  </button>
+                    <Link
+                      href={`/scribbles/${p.slug}`}
+                      target="_blank"
+                      className="flex-shrink-0 p-2 text-stone-light hover:text-fire hover:bg-fire/10 rounded-stone transition-colors"
+                      title="View post"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </Link>
+                  </div>
 
-                  <button
-                    onClick={() => startEdit(p)}
-                    className="text-xs px-3 py-2 rounded-stone border border-stone-dark text-stone-light hover:text-sand hover:bg-stone-dark/40 transition-colors"
-                  >
-                    Edit
-                  </button>
+                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-stone-dark/30">
+                    <button
+                      onClick={() => togglePinned(p)}
+                      className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-stone transition-colors ${
+                        p.pinned
+                          ? 'bg-fire/20 text-fire hover:bg-fire/30'
+                          : 'bg-stone-dark/40 text-stone-light hover:text-sand hover:bg-stone-dark/60'
+                      }`}
+                    >
+                      {p.pinned ? <PinOff className="w-3.5 h-3.5" /> : <Pin className="w-3.5 h-3.5" />}
+                      {p.pinned ? 'Unpin' : 'Pin'}
+                    </button>
 
-                  <button
-                    onClick={() => handleDelete(p)}
-                    className="text-xs px-3 py-2 rounded-stone border border-blood/40 text-blood hover:bg-blood/10 transition-colors"
-                    disabled={saving}
-                  >
-                    Delete
-                  </button>
+                    <button
+                      onClick={() => startEdit(p)}
+                      className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-stone bg-stone-dark/40 text-stone-light hover:text-sand hover:bg-stone-dark/60 transition-colors"
+                    >
+                      <Pencil className="w-3.5 h-3.5" />
+                      Edit
+                    </button>
 
-                  <Link href={`/scribbles/${p.slug}`} className="text-xs text-fire hover:underline">
-                    Open
-                  </Link>
+                    <button
+                      onClick={() => handleDelete(p)}
+                      className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-stone bg-blood/10 text-blood hover:bg-blood/20 transition-colors"
+                      disabled={saving}
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         )}
       </Card>
+
+      <ProductPicker
+        isOpen={showProductPicker}
+        onClose={() => setShowProductPicker(false)}
+        onSelect={(product) => {
+          insertAtEnd(`{{product:${product.id}}}`);
+        }}
+      />
     </div>
   );
 }
