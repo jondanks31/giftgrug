@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Header, MobileNav, SearchBar, CategoryGrid, PanicButton, GrugMascot, Footer } from '@/components';
+import { Header, MobileNav, SearchBar, CategoryGrid, PanicButton, GrugMascot, Footer, PinnedScribblesSection } from '@/components';
 import { PriceSlider } from '@/components/ui';
 import { uiText } from '@/lib/grug-dictionary';
 
@@ -42,6 +42,8 @@ export default function HomePage() {
           </h2>
           <CategoryGrid priceRangeIndex={priceRange} />
         </section>
+
+        <PinnedScribblesSection />
 
         {/* Panic Button */}
         <section className="max-w-md mx-auto">

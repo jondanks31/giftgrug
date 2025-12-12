@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { Button, Input, Card } from '@/components/ui';
 import { categories } from '@/lib/grug-dictionary';
 import type { Product } from '@/lib/database.types';
-import { Plus, Pencil, Trash2, X, Save, ChevronDown, ChevronUp, Table, FileText } from 'lucide-react';
+import { Plus, Pencil, Trash2, X, Save, ChevronDown, ChevronUp, Table, FileText, PenTool } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
 import { CategoryAdmin } from './CategoryAdmin';
 import { BulkProductAdmin } from './BulkProductAdmin';
@@ -159,6 +160,22 @@ export function ProductAdmin() {
   return (
     <div className="space-y-6">
       <h2 className="font-grug text-xl text-fire">🛠️ GRUG ADMIN TOOLS</h2>
+
+      <Card className="p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div>
+          <p className="font-grug text-lg text-sand flex items-center gap-2">
+            <PenTool className="w-5 h-5" /> Scribbles
+          </p>
+          <p className="text-sm text-stone-light">
+            Make new scribbles and pin "Grug favourite" ones.
+          </p>
+        </div>
+        <Link href="/admin/scribbles" className="w-full sm:w-auto">
+          <Button variant="secondary" className="w-full sm:w-auto">
+            Open Scribbles Admin
+          </Button>
+        </Link>
+      </Card>
 
       {/* Category Management - Collapsible */}
       <Card className="p-4">

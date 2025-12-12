@@ -54,6 +54,21 @@ export interface SavedProduct {
   created_at: string;
 }
 
+export interface ScribblesPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  published_at: string;
+  is_published: boolean;
+  pinned: boolean;
+  pinned_at: string | null;
+  pinned_order: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
 // Wishlists - "Cave Paintings"
 export interface Wishlist {
   id: string;
@@ -103,6 +118,11 @@ export interface Database {
         Row: Product;
         Insert: Omit<Product, 'id' | 'created_at' | 'updated_at'>;
         Update: Partial<Omit<Product, 'id' | 'created_at'>>;
+      };
+      scribbles_posts: {
+        Row: ScribblesPost;
+        Insert: Omit<ScribblesPost, 'id' | 'created_at' | 'updated_at'>;
+        Update: Partial<Omit<ScribblesPost, 'id' | 'created_at'>>;
       };
       wishlists: {
         Row: Wishlist;

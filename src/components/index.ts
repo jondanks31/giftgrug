@@ -5,5 +5,6 @@ export { SaveToWishlist } from './SaveToWishlist';
 export { CavePaintings } from './CavePaintings';
 export { Header, MobileNav } from './Header';
 export { GrugMascot } from './GrugMascot';
+export { PinnedScribblesSection } from './PinnedScribblesSection';
 export { Footer } from './Footer';
 export { EzoicAd } from './EzoicAd';
