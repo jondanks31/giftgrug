@@ -13,16 +13,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1612;
+  background: #211d18;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3d3630;
+  background: #4a423a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5c554d;
+  background: #6b6259;
 }
 
 /* Stone button effect */

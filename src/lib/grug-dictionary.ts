@@ -254,23 +254,23 @@ export const wishlistText = {
 // UI Text translations
 export const uiText = {
   // Headers
-  mainHeading: 'WHAT MAN BUY FOR WOMANFOLK?',
-  subHeading: 'Grug help man find shiny things for special womanfolk',
+  mainHeading: 'GRUG HELP MAN WITH ANYTHING',
+  subHeading: 'Simple answers from simple caveman. Grug not judge.',
   
   // Search
-  searchPlaceholder: 'what womanfolk like?',
+  searchPlaceholder: 'what man need help with?',
   searchButton: 'GRUG FIND THING',
   
   // Price slider
   priceSliderLabel: 'How many shiny coins man have?',
   
-  // Categories
+  // Categories (affiliate tab)
   categoriesHeading: 'Or man pick from cave wall:',
   
   // Panic mode
-  panicButton: 'MAN FORGOT SPECIAL SUN?!',
+  panicButton: 'GRUG HELP NOW!',
   panicHeading: 'GRUG HELP NOW!',
-  panicSubheading: 'Quick things. Arrive fast. Womanfolk not know man forget.',
+  panicSubheading: 'Man in trouble? Grug drop everything. Grug help fast.',
   
   // Results
   resultsHeading: 'GRUG FIND THINGS',
@@ -299,15 +299,74 @@ export const uiText = {
   
   // Ads / Affiliate disclosure
   affiliateDisclosure: 'Man click thing, thing give Grug shiny coins, Grug thank man, Grug buy Audi RS6',
-  grugPickLabel: 'GRUG SAVED THIS FOR MAN',
+  grugPickLabel: 'GRUG PICK THIS FOR MAN',
+};
+
+// Hunt page tab text
+export const huntText = {
+  // Tab labels
+  merchTab: "GRUG'S CAVE STORE",
+  affiliateTab: 'GRUG HEAR FROM MANY FOLK THIS GOOD',
+  
+  // Merch section
+  merchHeading: 'THINGS GRUG MAKE',
+  merchSubheading: 'Grug make things with own hands. Well... Grug draw picture, magic box make thing. But idea come from Grug brain.',
+  merchEmpty: 'Grug still making things. Come back soon.',
+  merchBuyButton: 'MAN TAKE THIS',
+  
+  // Affiliate section
+  affiliateHeading: 'THINGS OTHER FOLK SAY GOOD',
+  affiliateSubheading: 'Grug not make these. But many folk say these good things. Grug trust folk.',
+};
+
+// Chat / Talk to Grug text
+export const chatText = {
+  // Page
+  pageTitle: 'TALK TO GRUG',
+  pageSubtitle: 'Ask Grug anything. Grug try help. Grug not always smart but Grug always honest.',
+  
+  // Input
+  inputPlaceholder: 'Ask Grug something...',
+  sendButton: 'SEND TO GRUG',
+  
+  // Conversation starters
+  starters: [
+    { label: '🎁 What buy for wife?', message: 'What should I buy for my wife for her birthday?' },
+    { label: '🎧 Best headphones?', message: 'What are the best headphones under £100?' },
+    { label: '🥩 How cook steak?', message: 'How do I cook a good steak?' },
+    { label: '👔 Help with outfit', message: 'Help me pick a good outfit for a date night' },
+    { label: '🏠 Make cave nice', message: 'How can I make my home look nicer?' },
+    { label: '🤔 Life advice', message: 'I need some general life advice' },
+  ],
+  
+  // States
+  thinking: 'Grug thinking...',
+  error: 'Grug brain hurt. Try again?',
+  
+  // Rate limit / signup gate
+  freeMessagesUsed: 'Grug brain tired. Man make cave (sign up) or join cave mail to keep talking to Grug.',
+  signUpPrompt: 'MAKE CAVE',
+  newsletterPrompt: 'JOIN CAVE MAIL',
+};
+
+// Newsletter text
+export const newsletterText = {
+  heading: 'GRUG SEND CAVE MAIL',
+  subheading: 'Grug send one useful thing every week. No spam. Grug hate spam. Spam not even real food.',
+  inputPlaceholder: 'man@cave.rock',
+  submitButton: 'GRUG REMEMBER MAN',
+  success: 'Grug remember man now! Check fire-letter box.',
+  alreadySubscribed: 'Grug already know man! Check fire-letter box.',
+  error: 'Bird get lost. Try again?',
 };
 
 // Grug quotes for various situations
 export const grugQuotes = {
   welcome: [
-    'Grug see man need help. Grug best at find shiny things.',
+    'Grug here to help. What man need?',
     'Man look confused. This normal. Grug here now.',
-    'Welcome to Grug cave. Grug help man not sleep on rock tonight.',
+    'Welcome to Grug cave. Ask Grug anything.',
+    'Grug simple caveman. But Grug know things.',
   ],
   searching: [
     'Grug look in all caves...',
@@ -316,11 +375,11 @@ export const grugQuotes = {
   ],
   found: [
     'GRUG FIND! Man look at these.',
-    'These good things. Womanfolk make happy noise.',
+    'These good things. Grug approve.',
     'Grug work hard. Here what Grug find.',
   ],
   panic: [
-    'Man forget?! GRUG PANIC TOO! But Grug help.',
+    'Man in trouble?! GRUG HELP! Grug fast.',
     'No worry. Grug see this many times. Grug have plan.',
     'Quick quick! Grug know what do.',
   ],
@@ -335,6 +394,16 @@ export const grugQuotes = {
   error: [
     'Ugh. Something break. Grug confused.',
     'Cave have problem. Man try again?',
+  ],
+  chatting: [
+    'Grug listening. Tell Grug more.',
+    'Grug here. Ask anything.',
+    'Grug not judge. Just help.',
+  ],
+  newsletter: [
+    'Grug send best thoughts to man fire-letter box.',
+    'Cave mail good. Grug write, man read. Simple.',
+    'Join cave mail. Grug promise not be annoying.',
   ],
 };
 

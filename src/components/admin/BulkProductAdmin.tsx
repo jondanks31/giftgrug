@@ -17,6 +17,7 @@ interface BulkRow {
   image_url: string;
   grug_says: string;
   is_panic_product: boolean;
+  product_type: 'merch' | 'affiliate' | 'own';
   error?: string;
 }
 
@@ -30,6 +31,7 @@ const createEmptyRow = (): BulkRow => ({
   image_url: '',
   grug_says: '',
   is_panic_product: false,
+  product_type: 'affiliate',
 });
 
 // Calculate price range from price
@@ -94,6 +96,7 @@ export function BulkProductAdmin({ onComplete }: BulkProductAdminProps) {
           image_url: cols[5]?.trim() || '',
           grug_says: cols[6]?.trim() || '',
           is_panic_product: cols[7]?.toLowerCase().trim() === 'true',
+          product_type: (cols[8]?.trim() as 'merch' | 'affiliate' | 'own') || 'affiliate',
         });
       }
     }
@@ -157,6 +160,7 @@ export function BulkProductAdmin({ onComplete }: BulkProductAdminProps) {
       is_grug_pick: false,
       is_active: true,
       tags: [],
+      product_type: row.product_type || 'affiliate',
     }));
 
     // Batch insert

@@ -1,14 +1,14 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Header, MobileNav, GrugMascot } from '@/components';
+import { Header, MobileNav, Footer } from '@/components';
 import { Button, Card } from '@/components/ui';
-import { Heart, Gift, Clock, Sparkles } from 'lucide-react';
+import { Heart, MessageCircle, Clock, Sparkles } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'About GiftGrug - Our Story',
-  description: 'GiftGrug helps clueless men find perfect gifts for the women in their lives. Simple, funny, actually useful.',
+  title: 'About Grug',
+  description: 'Grug help make modern life simple. Advice, cool things, and wisdom from a simple caveman.',
 };
 
 export default function AboutPage() {
@@ -19,7 +19,7 @@ export default function AboutPage() {
       <div className="container mx-auto px-4 py-8 max-w-3xl">
         {/* Hero */}
         <section className="text-center mb-12">
-          <GrugMascot size="lg" customMessage="Grug tell man story of how this cave born..." />
+          <span className="text-6xl block">🗿</span>
           
           <h1 className="font-grug text-3xl md:text-4xl text-sand mt-6 mb-4">
             THE GRUG STORY
@@ -36,12 +36,13 @@ export default function AboutPage() {
               Man still confused.
             </p>
             <p>
-              Grug see this happen to many man. Grug think: "Why gift finding so hard? 
-              Why every site use fancy words man no understand?"
+              Grug see this happen to many man. Then Grug think bigger: why man 
+              struggle with so many things? Not just gifts. Life. Cooking. Fashion. 
+              Everything have too many options and too many fancy words.
             </p>
             <p>
-              So Grug make simple cave. Cave have good things. Cave explain things 
-              in way man understand. Cave help man not sleep on couch.
+              So Grug make simple cave. Cave where man ask Grug anything and get 
+              simple, honest answer. No judgement. No fancy words. Just Grug help.
             </p>
           </div>
         </Card>
@@ -52,11 +53,11 @@ export default function AboutPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card className="text-center">
-              <Gift className="w-10 h-10 text-fire mx-auto mb-3" />
-              <h3 className="font-grug text-lg text-sand mb-2">CURATED PICKS</h3>
+              <MessageCircle className="w-10 h-10 text-fire mx-auto mb-3" />
+              <h3 className="font-grug text-lg text-sand mb-2">TALK TO GRUG</h3>
               <p className="text-stone-light text-sm">
-                Grug hand-pick every thing. No random algorithm. Just good stuff 
-                that actually make womanfolk happy.
+                Ask Grug anything. Gifts, life stuff, what to cook for dinner. 
+                Grug not always smart but Grug always honest.
               </p>
             </Card>
             
@@ -64,17 +65,17 @@ export default function AboutPage() {
               <Sparkles className="w-10 h-10 text-fire mx-auto mb-3" />
               <h3 className="font-grug text-lg text-sand mb-2">SIMPLE WORDS</h3>
               <p className="text-stone-light text-sm">
-                No fancy marketing speak. Grug tell man what thing is and why 
-                womanfolk like it. Simple.
+                No fancy marketing speak. Grug tell man what thing is in words 
+                man understand. Simple.
               </p>
             </Card>
             
             <Card className="text-center">
               <Clock className="w-10 h-10 text-fire mx-auto mb-3" />
-              <h3 className="font-grug text-lg text-sand mb-2">PANIC MODE</h3>
+              <h3 className="font-grug text-lg text-sand mb-2">GRUG HELP NOW</h3>
               <p className="text-stone-light text-sm">
-                Forgot special day? Grug have emergency button. Fast things that 
-                arrive quick. Grug got man's back.
+                Man in trouble? Grug have emergency button. Fast answers, 
+                quick fixes. Grug got man's back.
               </p>
             </Card>
             
@@ -89,32 +90,37 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Affiliate transparency */}
+        {/* How Grug makes coins */}
         <Card className="mb-8 bg-cave border border-stone-dark">
           <h2 className="font-grug text-xl text-sand mb-3">HOW GRUG MAKE SHINY COINS</h2>
           <p className="text-stone-light">
-            When man click product and buy from Amazon, Grug get small commission. 
-            This no cost man extra coins. It just how Grug keep cave running and 
-            fire burning. Grug only recommend things Grug actually think good.
+            Grug sell cool things in cave store. Sometimes Grug recommend things 
+            in scribbles and newsletter — if man buy, Grug get small commission. 
+            This no cost man extra. It just how Grug keep fire burning.
           </p>
-          <Link href="/legal/affiliate" className="text-fire text-sm hover:underline mt-2 inline-block">
-            Read full disclosure →
-          </Link>
         </Card>
 
         {/* CTA */}
         <section className="text-center">
           <p className="font-grug-speech text-xl text-sand mb-6">
-            "Enough talk. Man go find gift now. Womanfolk waiting."
+            "Enough talk. Man go ask Grug something. Or go hunt for things."
           </p>
-          <Link href="/hunt">
-            <Button size="lg">
-              START HUNTING
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/talk">
+              <Button size="lg">
+                TALK TO GRUG
+              </Button>
+            </Link>
+            <Link href="/hunt">
+              <Button variant="secondary" size="lg">
+                GO HUNT
+              </Button>
+            </Link>
+          </div>
         </section>
       </div>
 
+      <Footer />
       <MobileNav />
     </div>
   );

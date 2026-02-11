@@ -5,8 +5,8 @@ import { Card } from '@/components/ui';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Affiliate Disclosure - GiftGrug',
-  description: 'GiftGrug affiliate disclosure and FTC compliance information.',
+  title: 'Affiliate Disclosure - Grug',
+  description: 'Grug affiliate disclosure and FTC compliance information.',
 };
 
 export default function AffiliateDisclosurePage() {
@@ -34,7 +34,7 @@ export default function AffiliateDisclosurePage() {
           <section>
             <h2 className="font-grug text-xl text-sand">Affiliate Disclosure</h2>
             <p>
-              GiftGrug is a participant in the Amazon Services LLC Associates Programme, 
+              Grug is a participant in the Amazon Services LLC Associates Programme, 
               an affiliate advertising programme designed to provide a means for sites to 
               earn advertising fees by advertising and linking to Amazon.co.uk.
             </p>
@@ -45,7 +45,7 @@ export default function AffiliateDisclosurePage() {
             <p>
               When you click on product links on this website and make a purchase, we may 
               receive a small commission at no additional cost to you. This commission helps 
-              us keep GiftGrug running and continue providing gift recommendations.
+              us keep Grug running and continue providing recommendations.
             </p>
           </section>
 
@@ -73,7 +73,7 @@ export default function AffiliateDisclosurePage() {
             <h2 className="font-grug text-xl text-sand">Amazon Trademark</h2>
             <p>
               Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. 
-              As an Amazon Associate, GiftGrug earns from qualifying purchases.
+              As an Amazon Associate, Grug earns from qualifying purchases.
             </p>
           </section>
 

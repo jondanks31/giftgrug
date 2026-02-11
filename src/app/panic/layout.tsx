@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'PANIC MODE - Last Minute Gifts - GiftGrug',
-  description: 'Forgot a birthday or anniversary? Don\'t panic! Quick gift ideas that arrive fast. Gift cards, flowers, chocolates and more emergency options.',
+  title: 'GRUG HELP NOW - Emergency Mode',
+  description: 'Man in trouble? Grug drop everything and help fast. Quick gift ideas, last-minute saves, and emergency solutions.',
   openGraph: {
-    title: 'PANIC MODE - Last Minute Gifts',
-    description: 'Forgot a birthday or anniversary? Quick gift ideas that arrive fast.',
+    title: 'GRUG HELP NOW - Emergency Mode',
+    description: 'Man in trouble? Grug drop everything and help fast.',
   },
 };
 

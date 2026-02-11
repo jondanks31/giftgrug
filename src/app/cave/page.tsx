@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Header, MobileNav, GrugMascot, Footer, CavePaintings } from '@/components';
+import { Header, MobileNav, Footer } from '@/components';
 import { Button, Card, Input } from '@/components/ui';
 import { AuthForm, useAuth } from '@/components/auth';
-import { uiText, recipientTypes, occasionTypes } from '@/lib/grug-dictionary';
+import { recipientTypes, occasionTypes } from '@/lib/grug-dictionary';
 import { createClient } from '@/lib/supabase/client';
 import type { SpecialSun } from '@/lib/database.types';
-import { Calendar, Plus, Trash2, Bell, LogOut, Gift, Settings, Check } from 'lucide-react';
-import Link from 'next/link';
+import { Calendar, Plus, Trash2, LogOut, Settings, Check, AlertTriangle } from 'lucide-react';
 import { ProductAdmin } from '@/components/admin';
 
 export default function CavePage() {
@@ -30,7 +29,6 @@ export default function CavePage() {
     name: '',
   });
 
-  // Fetch special suns and check admin status when user is logged in
   useEffect(() => {
     if (user) {
       fetchSpecialSuns();
@@ -46,7 +44,6 @@ export default function CavePage() {
       .select('is_admin')
       .eq('id', user?.id)
       .single();
-    
     setIsAdmin(data?.is_admin || false);
   };
 
@@ -56,16 +53,12 @@ export default function CavePage() {
       .from('special_suns')
       .select('*')
       .order('date', { ascending: true });
-
-    if (!error && data) {
-      setSpecialSuns(data);
-    }
+    if (!error && data) setSpecialSuns(data);
     setLoadingSuns(false);
   };
 
   const handleAddDate = async () => {
     if (!newDate.date || !newDate.name || !user) return;
-
     setSaving(true);
     const { data, error } = await supabase
       .from('special_suns')
@@ -79,7 +72,6 @@ export default function CavePage() {
       })
       .select()
       .single();
-
     if (!error && data) {
       setSpecialSuns([...specialSuns, data]);
       setNewDate({ recipient_type: 'wife', occasion_type: 'birthday', date: '', name: '' });
@@ -89,14 +81,8 @@ export default function CavePage() {
   };
 
   const handleRemoveDate = async (id: string) => {
-    const { error } = await supabase
-      .from('special_suns')
-      .delete()
-      .eq('id', id);
-
-    if (!error) {
-      setSpecialSuns(specialSuns.filter((sun) => sun.id !== id));
-    }
+    const { error } = await supabase.from('special_suns').delete().eq('id', id);
+    if (!error) setSpecialSuns(specialSuns.filter((sun) => sun.id !== id));
   };
 
   const handleToggleRemembered = async (id: string, currentValue: boolean) => {
@@ -107,7 +93,6 @@ export default function CavePage() {
         man_remembered_at: !currentValue ? new Date().toISOString() : null,
       })
       .eq('id', id);
-
     if (!error) {
       setSpecialSuns(specialSuns.map((sun) =>
         sun.id === id
@@ -122,40 +107,29 @@ export default function CavePage() {
     router.refresh();
   };
 
-  const getGrugRecipient = (type: string) => {
-    return recipientTypes.find((r) => r.id === type)?.grugName || type;
-  };
-
-  const getGrugOccasion = (type: string) => {
-    return occasionTypes.find((o) => o.id === type)?.grugName || type;
-  };
+  const getGrugOccasion = (type: string) =>
+    occasionTypes.find((o) => o.id === type)?.grugName || type;
 
   const getDaysUntil = (dateStr: string) => {
     const today = new Date();
-    const targetDate = new Date(dateStr);
-    // Set to this year
-    targetDate.setFullYear(today.getFullYear());
-    // If date has passed this year, set to next year
-    if (targetDate < today) {
-      targetDate.setFullYear(today.getFullYear() + 1);
-    }
-    const diffTime = targetDate.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    const target = new Date(dateStr);
+    target.setFullYear(today.getFullYear());
+    if (target < today) target.setFullYear(today.getFullYear() + 1);
+    return Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   };
 
-  const getUrgencyColor = (days: number) => {
-    if (days <= 7) return 'text-blood';
-    if (days <= 30) return 'text-fire';
-    return 'text-moss';
+  const getUrgencyStyle = (days: number) => {
+    if (days <= 7) return { text: 'text-blood', bg: 'bg-blood/10', border: 'border-blood/20' };
+    if (days <= 30) return { text: 'text-fire', bg: 'bg-fire/5', border: 'border-fire/10' };
+    return { text: 'text-stone-light', bg: '', border: 'border-stone-dark/40' };
   };
 
-  // Loading state
+  // Loading
   if (loading) {
     return (
       <div className="min-h-screen pb-20 md:pb-0">
         <Header />
-        <div className="container mx-auto px-4 py-8 flex items-center justify-center">
+        <div className="flex items-center justify-center py-20">
           <p className="font-grug text-sand">Grug thinking...</p>
         </div>
         <MobileNav />
@@ -163,17 +137,18 @@ export default function CavePage() {
     );
   }
 
-  // Not logged in - show auth form
+  // Not logged in
   if (!user) {
     return (
       <div className="min-h-screen pb-20 md:pb-0">
         <Header />
-        <div className="container mx-auto px-4 py-8">
+        <div className="max-w-md mx-auto px-6 py-12">
           <section className="text-center mb-8">
-            <h1 className="font-grug text-3xl md:text-4xl text-sand">
-              {uiText.caveHeading}
-            </h1>
-            <p className="text-stone-light mt-2">{uiText.caveSubheading}</p>
+            <span className="text-5xl block mb-4">🗿</span>
+            <h1 className="font-grug text-2xl text-sand mb-2">Man Enter Cave</h1>
+            <p className="text-stone-light text-sm">
+              Sign in to save important dates and get reminders.
+            </p>
           </section>
           <AuthForm />
         </div>
@@ -182,250 +157,205 @@ export default function CavePage() {
     );
   }
 
-  // Logged in - show cave dashboard
+  // Logged in
+  const urgentSuns = specialSuns.filter((sun) => !sun.man_remembered && getDaysUntil(sun.date) <= 14);
+
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <Header />
-      
-      <div className="container mx-auto px-4 py-8">
-        {/* Welcome Section */}
-        <section className="text-center mb-8">
-          <GrugMascot 
-            size="md" 
-            customMessage={`Welcome back to cave, ${user.user_metadata?.grug_name || 'Cave Dweller'}!`}
-          />
-          
-          <h1 className="font-grug text-3xl md:text-4xl text-sand mt-4">
-            {uiText.caveHeading}
-          </h1>
-          <p className="text-stone-light">
-            Fire-letter: {user.email}
-          </p>
-          
-          <div className="flex items-center justify-center gap-4 mt-4">
+
+      <div className="max-w-2xl mx-auto px-6 py-10">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-10">
+          <div>
+            <h1 className="font-grug text-2xl text-sand">
+              {user.user_metadata?.grug_name || 'Cave Dweller'}&apos;s Cave
+            </h1>
+            <p className="text-stone-light text-xs mt-0.5">{user.email}</p>
+          </div>
+          <div className="flex items-center gap-3">
             {isAdmin && (
               <button
                 onClick={() => setShowAdmin(!showAdmin)}
-                className={`text-sm flex items-center gap-2 ${showAdmin ? 'text-fire' : 'text-stone-light hover:text-fire'}`}
+                className={`p-2 rounded-lg transition-colors ${showAdmin ? 'text-fire bg-fire/10' : 'text-stone-light hover:text-sand'}`}
+                title="Admin Tools"
               >
                 <Settings className="w-4 h-4" />
-                {showAdmin ? 'Hide Admin' : 'Admin Tools'}
               </button>
             )}
             <button
               onClick={handleSignOut}
-              className="text-sm text-stone-light hover:text-fire flex items-center gap-2"
+              className="p-2 text-stone-light hover:text-sand transition-colors"
+              title="Sign out"
             >
               <LogOut className="w-4 h-4" />
-              Leave Cave
             </button>
           </div>
-        </section>
+        </div>
 
-        {/* Admin Panel - Only shows for admins */}
+        {/* Admin Panel */}
         {isAdmin && showAdmin && (
-          <section className="max-w-4xl mx-auto mb-12">
+          <section className="mb-12">
             <ProductAdmin />
           </section>
         )}
 
-        {/* Upcoming Dates Alert */}
-        {specialSuns.some((sun) => getDaysUntil(sun.date) <= 14) && (
-          <section className="max-w-2xl mx-auto mb-8">
-            <Card className="bg-blood/10 border border-blood/30">
-              <div className="flex items-start gap-3">
-                <Bell className="w-6 h-6 text-blood flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-grug text-lg text-blood">GRUG WARN MAN!</h3>
-                  <p className="text-sand text-sm mt-1">
-                    Special sun coming soon! Man should start hunting for gift now.
-                  </p>
-                  <div className="mt-3 space-y-2">
-                    {specialSuns
-                      .filter((sun) => getDaysUntil(sun.date) <= 14)
-                      .map((sun) => (
-                        <div key={sun.id} className="flex items-center justify-between">
-                          <span className="text-sand">
-                            {sun.name}'s {getGrugOccasion(sun.occasion_type)}
-                          </span>
-                          <span className="text-blood font-grug">
-                            {getDaysUntil(sun.date)} suns left!
-                          </span>
-                        </div>
-                      ))}
-                  </div>
-                  <Link href="/hunt">
-                    <Button size="sm" className="mt-3">
-                      <Gift className="w-4 h-4 mr-2" />
-                      HUNT FOR GIFT NOW
-                    </Button>
-                  </Link>
+        {/* Urgent Dates Alert */}
+        {urgentSuns.length > 0 && (
+          <div className="mb-8 rounded-rock border border-blood/20 bg-blood/5 p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertTriangle className="w-4 h-4 text-blood" />
+              <span className="font-grug text-sm text-blood">COMING UP SOON</span>
+            </div>
+            <div className="space-y-2">
+              {urgentSuns.map((sun) => (
+                <div key={sun.id} className="flex items-center justify-between text-sm">
+                  <span className="text-sand">{sun.name}&apos;s {getGrugOccasion(sun.occasion_type)}</span>
+                  <span className="font-grug text-blood">{getDaysUntil(sun.date)}d</span>
                 </div>
-              </div>
-            </Card>
-          </section>
+              ))}
+            </div>
+          </div>
         )}
 
-        {/* Special Suns (Important Dates) */}
-        <section className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-grug text-xl text-sand flex items-center gap-2">
-              <Calendar className="w-5 h-5" />
-              {uiText.datesHeading}
+        {/* Special Suns */}
+        <section>
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="font-grug text-lg text-sand flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-stone-light" />
+              Important Dates
             </h2>
-            <Button
-              variant="secondary"
-              size="sm"
+            <button
               onClick={() => setIsAddingDate(true)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-1.5 text-sm text-fire hover:text-fire-light transition-colors"
             >
               <Plus className="w-4 h-4" />
-              {uiText.addDateButton}
-            </Button>
+              <span className="font-grug text-xs">ADD</span>
+            </button>
           </div>
 
           {/* Add Date Form */}
           {isAddingDate && (
-            <Card className="mb-4">
-              <h3 className="font-grug text-lg text-sand mb-4">Add New Special Sun</h3>
-              
-              <div className="space-y-4">
+            <div className="mb-6 rounded-rock border border-stone-dark/60 bg-cave-light/30 p-5">
+              <h3 className="font-grug text-sand text-sm mb-4">New Important Date</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                 <div>
-                  <label className="block text-sm text-stone-light mb-1">Who this for?</label>
+                  <label className="block text-xs text-stone-light mb-1">Who</label>
                   <select
                     value={newDate.recipient_type}
                     onChange={(e) => setNewDate({ ...newDate, recipient_type: e.target.value })}
-                    className="input-cave w-full"
+                    className="input-cave w-full text-sm"
                   >
                     {recipientTypes.map((type) => (
-                      <option key={type.id} value={type.id}>
-                        {type.grugName} ({type.realName})
-                      </option>
+                      <option key={type.id} value={type.id}>{type.realName}</option>
                     ))}
                   </select>
                 </div>
-
                 <div>
-                  <label className="block text-sm text-stone-light mb-1">What occasion?</label>
+                  <label className="block text-xs text-stone-light mb-1">Occasion</label>
                   <select
                     value={newDate.occasion_type}
                     onChange={(e) => setNewDate({ ...newDate, occasion_type: e.target.value })}
-                    className="input-cave w-full"
+                    className="input-cave w-full text-sm"
                   >
                     {occasionTypes.map((type) => (
-                      <option key={type.id} value={type.id}>
-                        {type.grugName} ({type.realName})
-                      </option>
+                      <option key={type.id} value={type.id}>{type.realName}</option>
                     ))}
                   </select>
                 </div>
-
                 <div>
-                  <label className="block text-sm text-stone-light mb-1">Womanfolk name</label>
+                  <label className="block text-xs text-stone-light mb-1">Name</label>
                   <Input
                     type="text"
-                    placeholder="What man call her?"
+                    placeholder="Their name"
                     value={newDate.name}
                     onChange={(e) => setNewDate({ ...newDate, name: e.target.value })}
+                    className="text-sm"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm text-stone-light mb-1">When is special sun?</label>
+                  <label className="block text-xs text-stone-light mb-1">Date</label>
                   <Input
                     type="date"
                     value={newDate.date}
                     onChange={(e) => setNewDate({ ...newDate, date: e.target.value })}
+                    className="text-sm"
                   />
                 </div>
-
-                <div className="flex gap-3">
-                  <Button onClick={handleAddDate} disabled={saving}>
-                    {saving ? 'Grug saving...' : 'Save Special Sun'}
-                  </Button>
-                  <Button variant="ghost" onClick={() => setIsAddingDate(false)}>
-                    Cancel
-                  </Button>
-                </div>
               </div>
-            </Card>
+              <div className="flex gap-2">
+                <Button size="sm" onClick={handleAddDate} disabled={saving}>
+                  {saving ? 'Saving...' : 'Save'}
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => setIsAddingDate(false)}>
+                  Cancel
+                </Button>
+              </div>
+            </div>
           )}
 
-          {/* List of Special Suns */}
+          {/* List */}
           {loadingSuns ? (
-            <Card className="text-center py-8">
-              <p className="text-stone-light font-grug-speech text-lg">
-                Grug looking in cave...
-              </p>
-            </Card>
+            <p className="text-stone-light text-sm py-8 text-center">Loading...</p>
           ) : specialSuns.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {specialSuns.map((sun) => {
-                const daysUntil = getDaysUntil(sun.date);
+                const days = getDaysUntil(sun.date);
+                const urgency = getUrgencyStyle(days);
+                const done = sun.man_remembered;
+
                 return (
-                  <Card key={sun.id} className={sun.man_remembered ? 'opacity-60' : ''}>
-                    <div className="flex items-center justify-between">
-                      <div className="flex-grow">
-                        <p className="font-grug text-sand flex items-center gap-2">
-                          {sun.man_remembered && <Check className="w-4 h-4 text-moss" />}
-                          {sun.name}'s {getGrugOccasion(sun.occasion_type)}
-                        </p>
-                        <p className="text-sm text-stone-light">
-                          {getGrugRecipient(sun.recipient_type)} • {new Date(sun.date).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className={`font-grug text-sm ${sun.man_remembered ? 'text-moss' : getUrgencyColor(daysUntil)}`}>
-                          {sun.man_remembered ? 'Done!' : `${daysUntil} suns`}
-                        </span>
-                        <div className="flex items-center gap-1">
-                          <Link
-                            href={`/hunt?occasion=${sun.occasion_type}&recipient=${sun.recipient_type}`}
-                            className="p-2 text-stone-light hover:text-fire transition-colors"
-                            title="Hunt for gift"
-                          >
-                            <Gift className="w-4 h-4" />
-                          </Link>
-                          <button
-                            onClick={() => handleRemoveDate(sun.id)}
-                            className="p-2 text-stone-light hover:text-blood transition-colors"
-                            title="Remove"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </div>
+                  <div
+                    key={sun.id}
+                    className={`flex items-center gap-3 p-3 rounded-rock border transition-all ${
+                      done ? 'opacity-50 border-stone-dark/20' : urgency.border
+                    } ${!done ? urgency.bg : ''}`}
+                  >
+                    {/* Done toggle */}
+                    <button
+                      onClick={() => handleToggleRemembered(sun.id, done)}
+                      className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${
+                        done
+                          ? 'bg-moss/30 border-moss text-moss'
+                          : 'border-stone-dark hover:border-fire'
+                      }`}
+                    >
+                      {done && <Check className="w-3 h-3" />}
+                    </button>
+
+                    {/* Info */}
+                    <div className="flex-grow min-w-0">
+                      <p className={`text-sm font-grug ${done ? 'text-stone-light line-through' : 'text-sand'}`}>
+                        {sun.name}&apos;s {getGrugOccasion(sun.occasion_type)}
+                      </p>
+                      <p className="text-xs text-stone-light">
+                        {new Date(sun.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                      </p>
                     </div>
-                    {/* Man Remembered toggle */}
-                    <div className="mt-3 pt-3 border-t border-stone-dark">
-                      <button
-                        onClick={() => handleToggleRemembered(sun.id, sun.man_remembered)}
-                        className={`flex items-center gap-2 px-3 py-1.5 rounded text-sm ${
-                          sun.man_remembered 
-                            ? 'bg-moss/20 text-moss-light' 
-                            : 'bg-stone-dark text-stone-light hover:text-sand'
-                        }`}
-                      >
-                        <Check className="w-4 h-4" />
-                        {sun.man_remembered ? 'Man Remembered! (click to undo)' : 'Man Remembered'}
-                      </button>
-                    </div>
-                  </Card>
+
+                    {/* Days countdown */}
+                    <span className={`font-grug text-xs shrink-0 ${done ? 'text-moss' : urgency.text}`}>
+                      {done ? '✓' : `${days}d`}
+                    </span>
+
+                    {/* Delete */}
+                    <button
+                      onClick={() => handleRemoveDate(sun.id)}
+                      className="p-1 text-stone-light/40 hover:text-blood transition-colors shrink-0"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 );
               })}
             </div>
           ) : (
-            <Card className="text-center py-8">
-              <p className="text-stone-light font-grug-speech text-lg">
-                No special suns yet. Add one so Grug remind man!
+            <div className="text-center py-12">
+              <p className="text-stone-light text-sm">
+                No important dates yet. Add one and Grug will remind you.
               </p>
-            </Card>
+            </div>
           )}
-        </section>
-
-        {/* Cave Paintings (Wishlists) */}
-        <section className="max-w-2xl mx-auto mt-12">
-          <CavePaintings />
         </section>
       </div>
 

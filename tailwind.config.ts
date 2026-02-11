@@ -10,14 +10,14 @@ const config: Config = {
     extend: {
       colors: {
         cave: {
-          dark: '#1a1612',
-          DEFAULT: '#2d2926',
-          light: '#3d3630',
+          dark: '#211d18',
+          DEFAULT: '#332e29',
+          light: '#443d36',
         },
         stone: {
-          dark: '#3d3630',
-          DEFAULT: '#5c554d',
-          light: '#7a726a',
+          dark: '#4a423a',
+          DEFAULT: '#6b6259',
+          light: '#8a8178',
         },
         sand: {
           dark: '#a08968',

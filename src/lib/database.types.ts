@@ -1,4 +1,4 @@
-// Database types for GiftGrug
+// Database types for JustGrug
 
 export interface Profile {
   id: string;
@@ -25,6 +25,7 @@ export interface Product {
   is_active: boolean;
   is_panic_product: boolean;
   tags: string[];
+  product_type: 'merch' | 'affiliate' | 'own';
 }
 
 export interface SpecialSun {
@@ -94,6 +95,16 @@ export interface WishlistItem {
 // Extended wishlist item with product details (for display)
 export interface WishlistItemWithProduct extends WishlistItem {
   product: Product;
+}
+
+// Chat messages for Talk to Grug
+export interface ChatMessage {
+  id: string;
+  session_id: string;
+  user_id: string | null;
+  role: 'user' | 'assistant';
+  content: string;
+  created_at: string;
 }
 
 export interface Database {

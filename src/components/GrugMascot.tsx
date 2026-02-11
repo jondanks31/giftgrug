@@ -5,7 +5,7 @@ import { getRandomQuote } from '@/lib/grug-dictionary';
 import { useEffect, useState } from 'react';
 
 interface GrugMascotProps {
-  situation?: 'welcome' | 'searching' | 'found' | 'panic' | 'empty' | 'saved' | 'error';
+  situation?: 'welcome' | 'searching' | 'found' | 'panic' | 'empty' | 'saved' | 'error' | 'chatting' | 'newsletter';
   customMessage?: string;
   className?: string;
   size?: 'sm' | 'md' | 'lg';

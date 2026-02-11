@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Home, Search, User, LogIn, PenTool } from 'lucide-react';
+import { Home, Search, User, LogIn, PenTool, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/components/auth';
 
@@ -14,7 +14,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo - centered on mobile, left on desktop */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
-            <span className="font-grug text-2xl md:text-xl text-sand">GIFTGRUG</span>
+            <span className="font-grug text-2xl md:text-xl text-sand">GRUG</span>
           </Link>
 
           {/* Spacer for mobile centering */}
@@ -30,6 +30,9 @@ export function Header() {
             </NavLink>
             <NavLink href="/scribbles" icon={<PenTool className="w-4 h-4" />}>
               Scribbles
+            </NavLink>
+            <NavLink href="/talk" icon={<MessageCircle className="w-4 h-4" />}>
+              Talk to Grug
             </NavLink>
             {user ? (
               <NavLink 
@@ -85,6 +88,7 @@ export function MobileNav() {
         <MobileNavLink href="/" icon={<Home className="w-5 h-5" />} label="Home" />
         <MobileNavLink href="/hunt" icon={<Search className="w-5 h-5" />} label="Hunt" />
         <MobileNavLink href="/scribbles" icon={<PenTool className="w-5 h-5" />} label="Scribbles" />
+        <MobileNavLink href="/talk" icon={<MessageCircle className="w-5 h-5" />} label="Grug" />
         <MobileNavLink 
           href="/cave" 
           icon={

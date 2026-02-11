@@ -18,6 +18,7 @@ export interface ProductDisplay {
   imageUrl: string | null;
   grugSays: string;
   isGrugPick: boolean;
+  isPanicProduct: boolean;
   tags: string[];
 }
 
@@ -33,17 +34,33 @@ function mapProduct(p: Product): ProductDisplay {
     imageUrl: p.image_url,
     grugSays: p.grug_says,
     isGrugPick: p.is_grug_pick,
+    isPanicProduct: p.is_panic_product,
     tags: p.tags || [],
   };
 }
 
-// Get all active products
+// Get all active affiliate products (default for hunt affiliate tab)
 export async function getAllProducts(): Promise<ProductDisplay[]> {
   const supabase = createClient();
   const { data, error } = await supabase
     .from('products')
     .select('*')
     .eq('is_active', true)
+    .eq('product_type', 'affiliate')
+    .order('created_at', { ascending: false });
+
+  if (error || !data) return [];
+  return data.map(mapProduct);
+}
+
+// Get merch + own products (for hunt store tab)
+export async function getMerchProducts(): Promise<ProductDisplay[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('is_active', true)
+    .in('product_type', ['merch', 'own'])
     .order('created_at', { ascending: false });
 
   if (error || !data) return [];

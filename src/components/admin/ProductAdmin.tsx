@@ -27,6 +27,7 @@ interface ProductFormData {
   is_panic_product: boolean;
   is_active: boolean;
   tags: string;
+  product_type: 'merch' | 'affiliate' | 'own';
 }
 
 const emptyForm: ProductFormData = {
@@ -43,6 +44,7 @@ const emptyForm: ProductFormData = {
   is_panic_product: false,
   is_active: true,
   tags: '',
+  product_type: 'affiliate',
 };
 
 export function ProductAdmin() {
@@ -108,6 +110,7 @@ export function ProductAdmin() {
       is_panic_product: formData.is_panic_product,
       is_active: formData.is_active,
       tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
+      product_type: formData.product_type,
     };
 
     if (editingId) {
@@ -141,6 +144,7 @@ export function ProductAdmin() {
       is_panic_product: product.is_panic_product,
       is_active: product.is_active,
       tags: product.tags.join(', '),
+      product_type: product.product_type || 'affiliate',
     });
     setEditingId(product.id);
     setShowForm(true);
@@ -287,6 +291,21 @@ export function ProductAdmin() {
                       {cat.emoji} {cat.grugName}
                     </option>
                   ))}
+                </select>
+              </div>
+
+              {/* Product Type */}
+              <div>
+                <label className="block text-sm text-stone-light mb-1">Product Type *</label>
+                <select
+                  required
+                  value={formData.product_type}
+                  onChange={(e) => setFormData({ ...formData, product_type: e.target.value as 'merch' | 'affiliate' | 'own' })}
+                  className="input-cave w-full"
+                >
+                  <option value="affiliate">🔗 Affiliate (Amazon)</option>
+                  <option value="merch">👕 Merch (Print-on-Demand)</option>
+                  <option value="own">🪨 Own Product (Stripe)</option>
                 </select>
               </div>
 

@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Hunt for Gifts - GiftGrug',
-  description: 'Browse gift ideas by category or search for the perfect present. Jewellery, perfume, bags, watches and more - all with Grug\'s seal of approval.',
+  title: 'Hunt - Grug',
+  description: 'Cool things Grug found. No junk. Just good sticks, nice rocks, useful stuff.',
   openGraph: {
-    title: 'Hunt for Gifts - GiftGrug',
-    description: 'Browse gift ideas by category or search for the perfect present.',
+    title: 'Hunt - Grug',
+    description: 'Cool things Grug found. No junk. Just good.',
   },
 };
 

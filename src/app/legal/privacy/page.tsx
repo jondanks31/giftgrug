@@ -5,8 +5,8 @@ import { Card } from '@/components/ui';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - GiftGrug',
-  description: 'GiftGrug privacy policy - how we collect, use, and protect your data.',
+  title: 'Privacy Policy - Grug',
+  description: 'Grug privacy policy - how we collect, use, and protect your data.',
 };
 
 export default function PrivacyPolicyPage() {
@@ -34,7 +34,7 @@ export default function PrivacyPolicyPage() {
           <section>
             <h2 className="font-grug text-xl text-sand">Introduction</h2>
             <p>
-              GiftGrug ("we", "our", or "us") is committed to protecting your privacy. 
+              Grug ("we", "our", or "us") is committed to protecting your privacy. 
               This Privacy Policy explains how we collect, use, disclose, and safeguard 
               your information when you visit our website giftgrug.com.
             </p>
@@ -128,7 +128,7 @@ export default function PrivacyPolicyPage() {
           <section>
             <h2 className="font-grug text-xl text-sand">Children's Privacy</h2>
             <p>
-              GiftGrug is not intended for children under 16. We do not knowingly collect 
+              Grug is not intended for children under 16. We do not knowingly collect 
               personal information from children under 16. If you believe we have collected 
               such information, please contact us immediately.
             </p>

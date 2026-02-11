@@ -36,10 +36,10 @@ export default function NotFound() {
               Back to Cave
             </Button>
           </Link>
-          <Link href="/hunt">
+          <Link href="/talk">
             <Button variant="secondary" size="lg" className="flex items-center gap-2">
               <Search className="w-5 h-5" />
-              Hunt for Gifts
+              Talk to Grug
             </Button>
           </Link>
         </div>
