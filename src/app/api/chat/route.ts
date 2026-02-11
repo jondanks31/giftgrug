@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { GRUG_SYSTEM_PROMPT } from '@/lib/grug-chat';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(request: NextRequest) {
   try {
     // Check if API key is configured
@@ -15,6 +11,10 @@ export async function POST(request: NextRequest) {
         { status: 503 }
       );
     }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     const { messages } = await request.json();
 
