@@ -95,7 +95,7 @@ export default function AboutPage() {
           <h2 className="font-grug text-xl text-sand mb-3">HOW GRUG MAKE SHINY COINS</h2>
           <p className="text-stone-light">
             Grug sell cool things in cave store. Sometimes Grug recommend things 
-            in scribbles and newsletter — if man buy, Grug get small commission. 
+            in scribbles and newsletter. If man buy, Grug get small commission. 
             This no cost man extra. It just how Grug keep fire burning.
           </p>
         </Card>

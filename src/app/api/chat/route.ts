@@ -35,28 +35,40 @@ export async function POST(request: NextRequest) {
     ];
 
     // Stream the response
+    const model = process.env.OPENAI_MODEL || 'gpt-5-mini-2025-08-07';
+    console.log('[Chat] Using model:', model);
+    
     const stream = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'gpt-5-mini-2025-08-07',
+      model,
       messages: openaiMessages,
-      max_tokens: 500,
-      temperature: 0.8,
       stream: true,
     });
+
+    console.log('[Chat] Stream created successfully');
 
     // Create a ReadableStream from the OpenAI stream
     const encoder = new TextEncoder();
     const readableStream = new ReadableStream({
       async start(controller) {
         try {
+          let chunkCount = 0;
           for await (const chunk of stream) {
-            const content = chunk.choices[0]?.delta?.content;
+            // Log first few chunks to debug structure
+            if (chunkCount < 3) {
+              console.log('[Chat] Chunk:', JSON.stringify(chunk.choices[0]));
+            }
+            const delta = chunk.choices[0]?.delta;
+            const content = delta?.content || (delta as any)?.text;
             if (content) {
+              chunkCount++;
               controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
             }
           }
+          console.log('[Chat] Stream complete, chunks:', chunkCount);
           controller.enqueue(encoder.encode('data: [DONE]\n\n'));
           controller.close();
         } catch (error) {
+          console.error('[Chat] Stream error:', error);
           controller.error(error);
         }
       },
