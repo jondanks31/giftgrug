@@ -30,7 +30,7 @@ Focus: modern, functional UX — less caveman gimmickry, more intentional design
 | `STRIPE_PUBLISHABLE_KEY` | Merch checkout (client) | ❌ Needed |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase | ✅ Exists |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase | ✅ Exists |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase admin | ✅ Exists |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase admin (rate limiting, usage tracking) | ✅ Set (dev + prod) |
 | `BREVO_API_KEY` | Transactional email | ✅ Exists |
 
 ---
@@ -124,7 +124,7 @@ Focus: modern, functional UX — less caveman gimmickry, more intentional design
 ### Phase 12: Homepage Redesign V2 ✅
 | File | Change | Status |
 |---|---|---|
-| `src/app/page.tsx` | Hero: 🗿 + "Modern Life Too Complicated. Grug Help Make Simple." + dual CTA ("Talk to Grug" / "Join Tribe") → 3 feature sections (Advice, Cool Things, Scribbles) → Newsletter (#tribe anchor) | ✅ |
+| `src/app/page.tsx` | Hero: Grug avatar + "Modern Life Hard. Grug Help Make Simple." + dual CTA ("Talk to Grug" / "Join Tribe") → 3 feature sections (Advice, Cool Things, Scribbles) → Newsletter (#tribe anchor) | ✅ |
 
 ### Phase 13: Hunt Page Simplification ✅
 | File | Change | Status |
@@ -142,11 +142,34 @@ Focus: modern, functional UX — less caveman gimmickry, more intentional design
 | `tailwind.config.ts` | Lightened cave/stone colors | ✅ |
 | `src/app/globals.css` | Updated scrollbar colors to match | ✅ |
 
+### Phase 16: AI Chat Rate Limiting ✅
+| File | Change | Status |
+|---|---|---|
+| `src/app/api/chat/route.ts` | Server-side rate limiting: anonymous 5/day (IP hash), signed-in 25/day (user_id), admin unlimited. Supabase service role client for usage tracking. Guards for missing env vars. | ✅ |
+| `src/app/api/chat/usage/route.ts` | New GET endpoint returning remaining/limit/used/isAdmin for current user or IP | ✅ |
+| `src/components/GrugChat.tsx` | Server-driven remaining count, optimistic decrement, 429 handling, removed client-side counter | ✅ |
+| `src/lib/grug-chat.ts` | Added FREE_MESSAGE_LIMIT (5) and SIGNED_IN_MESSAGE_LIMIT (25) constants | ✅ |
+| Supabase migration | `chat_usage` table (identifier, identifier_type, message_date, message_count) + `increment_chat_usage` RPC function | ✅ |
+
+### Phase 17: Grug Avatar ✅
+| File | Change | Status |
+|---|---|---|
+| `public/grug_avatar.png` | Custom Grug character illustration (portrait orientation) | ✅ |
+| 13 files across src/ | Replaced all 🗿 emoji with `<img src="/grug_avatar.png">` using height-only sizing (`h-X w-auto`) to preserve aspect ratio | ✅ |
+
+### Phase 18: Homepage Polish ✅
+| File | Change | Status |
+|---|---|---|
+| `src/app/page.tsx` | Headline: "Modern Life Hard." (was "Too Complicated"). Removed mascot-glow and mascot-float animations. Tightened hero spacing for mobile and desktop. | ✅ |
+| `src/components/GrugChat.tsx` | Removed small Grug avatar from chat message responses (too small to see) | ✅ |
+
 ### Bug Fixes ✅
 | Fix | Status |
 |---|---|
 | OpenAI client moved from module-level to inside POST handler (Vercel build fix) | ✅ |
 | BulkProductAdmin paste handler missing product_type field | ✅ |
+| TypeScript lint errors on Supabase queries fixed with type assertions | ✅ |
+| Guard for missing SUPABASE_SERVICE_ROLE_KEY (fail-open in dev) | ✅ |
 
 ---
 
@@ -168,3 +191,6 @@ Focus: modern, functional UX — less caveman gimmickry, more intentional design
 - Scribbles system unchanged — content topics broadening organically
 - Google OAuth still commented out in AuthForm.tsx (pre-existing)
 - OPENAI_API_KEY is set and chat is functional
+- Grug avatar (`grug_avatar.png`) is portrait-oriented — always use `h-X w-auto` sizing, never square `w-X h-X`
+- Rate limiting uses Supabase `chat_usage` table + `increment_chat_usage` RPC. Anonymous users tracked by SHA-256 hashed IP.
+- Chat API fails open if `SUPABASE_SERVICE_ROLE_KEY` is missing (allows chat without rate limiting in dev)

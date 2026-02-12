@@ -38,21 +38,21 @@ export default function HomePage() {
       <Header />
 
       {/* ────────── HERO ────────── */}
-      <section className="pt-8 pb-8 md:pt-16 md:pb-16 text-center px-6">
+      <section className="pt-5 pb-6 md:pt-16 md:pb-16 text-center px-6">
         {/* Mascot with glow */}
         <div className="hero-enter inline-block">
           <div className="inline-block">
-            <img src="/grug_avatar.png" alt="Grug" className="h-36 md:h-44 w-auto select-none" />
+            <img src="/grug_avatar.png" alt="Grug" className="h-28 md:h-44 w-auto select-none" />
           </div>
         </div>
 
-        <h1 className="hero-enter-delay-1 font-grug text-4xl md:text-6xl text-sand leading-tight mt-2 md:mt-8 mb-3 md:mb-6">
+        <h1 className="hero-enter-delay-1 font-grug text-3xl md:text-6xl text-sand leading-tight mt-1 md:mt-8 mb-2 md:mb-6">
           Modern Life Hard.
           <br />
           <span className="text-fire">Grug Help Make Simple.</span>
         </h1>
 
-        <p className="hero-enter-delay-2 text-stone-light text-base md:text-lg max-w-lg mx-auto leading-relaxed mb-8 md:mb-12">
+        <p className="hero-enter-delay-2 text-stone-light text-sm md:text-lg max-w-lg mx-auto leading-relaxed mb-5 md:mb-12">
           Too many choices. Too much noise. Grug cut through all that.
           <br className="hidden sm:block" />
           Simple advice, cool things, no overthinking.
