@@ -16,11 +16,31 @@ export function GrugChat() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sessionId] = useState(() => generateSessionId());
-  const [userMessageCount, setUserMessageCount] = useState(0);
+  const [remaining, setRemaining] = useState<number | null>(null);
+  const [limit, setLimit] = useState<number>(FREE_MESSAGE_LIMIT);
+  const [isAdmin, setIsAdmin] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const isGated = !user && userMessageCount >= FREE_MESSAGE_LIMIT;
+  const isGated = remaining !== null && remaining <= 0 && !isAdmin;
+
+  // Fetch usage from server on mount and when user changes
+  useEffect(() => {
+    async function fetchUsage() {
+      try {
+        const res = await fetch('/api/chat/usage');
+        if (res.ok) {
+          const data = await res.json();
+          setRemaining(data.remaining);
+          setLimit(data.limit);
+          setIsAdmin(data.isAdmin);
+        }
+      } catch {
+        // If usage check fails, allow messages (fail open)
+      }
+    }
+    fetchUsage();
+  }, [user]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -39,7 +59,7 @@ export function GrugChat() {
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInput('');
-    setUserMessageCount(prev => prev + 1);
+    if (remaining !== null && !isAdmin) setRemaining(prev => prev !== null ? prev - 1 : prev);
     setIsLoading(true);
 
     // Create placeholder for assistant response
@@ -101,6 +121,16 @@ export function GrugChat() {
     } finally {
       setIsLoading(false);
       inputRef.current?.focus();
+      // Re-fetch actual usage from server
+      try {
+        const res = await fetch('/api/chat/usage');
+        if (res.ok) {
+          const data = await res.json();
+          setRemaining(data.remaining);
+          setLimit(data.limit);
+          setIsAdmin(data.isAdmin);
+        }
+      } catch {}
     }
   };
 
@@ -225,9 +255,9 @@ export function GrugChat() {
             )}
           </Button>
         </form>
-        {!user && !isGated && userMessageCount > 0 && (
+        {!isAdmin && !isGated && remaining !== null && remaining > 0 && remaining < limit && (
           <p className="text-stone-light/50 text-xs mt-2 text-center">
-            {FREE_MESSAGE_LIMIT - userMessageCount} free messages left
+            {remaining} {user ? 'messages' : 'free messages'} left today
           </p>
         )}
       </div>
