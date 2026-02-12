@@ -185,9 +185,6 @@ export function GrugChat() {
                   : 'bg-stone-dark border border-stone-dark text-sand'
               }`}
             >
-              {message.role === 'assistant' && (
-                <span className="text-lg mr-2">🗿</span>
-              )}
               <div className="font-grug-speech text-sm leading-relaxed whitespace-pre-wrap">
                 {message.content || (
                   <span className="flex items-center gap-2 text-stone-light">

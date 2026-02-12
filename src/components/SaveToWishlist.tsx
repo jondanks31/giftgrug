@@ -118,12 +118,12 @@ export function SaveToWishlist({ productId, variant = 'icon', className = '' }: 
         {variant === 'icon' ? (
           <div className={`flex items-center gap-1 ${isSaved ? 'text-fire' : 'text-stone-light hover:text-fire'}`}>
             {isSaved ? <BookmarkCheck className="w-5 h-5" /> : <Bookmark className="w-5 h-5" />}
-            {isSaved && <span className="text-xs font-grug">🗿</span>}
+            {isSaved && <img src="/grug_avatar.png" alt="Grug" className="h-5 w-auto" />}
           </div>
         ) : (
           <span className={`flex items-center gap-2 text-sm font-grug ${isSaved ? 'text-fire' : 'text-stone-light hover:text-fire'}`}>
             {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
-            {isSaved ? '🗿 SAVED' : wishlistText.saveToWishlist}
+            {isSaved ? <><img src="/grug_avatar.png" alt="Grug" className="h-5 w-auto inline-block" /> SAVED</> : wishlistText.saveToWishlist}
           </span>
         )}
       </button>

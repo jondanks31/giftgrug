@@ -24,23 +24,23 @@ export function GrugMascot({
   }, [situation, customMessage]);
 
   const sizes = {
-    sm: 'text-4xl',
-    md: 'text-6xl',
-    lg: 'text-8xl',
+    sm: 'h-12',
+    md: 'h-20',
+    lg: 'h-32',
   };
 
   const mobileSizes = {
-    sm: 'text-3xl',
-    md: 'text-4xl',
-    lg: 'text-5xl',
+    sm: 'h-10',
+    md: 'h-14',
+    lg: 'h-20',
   };
 
   return (
     <>
       {/* Desktop: Vertical layout (original) */}
       <div className={cn('hidden md:flex flex-col items-center gap-3', className)}>
-        <div className={cn('select-none', sizes[size])}>
-          🗿
+        <div className="select-none">
+          <img src="/grug_avatar.png" alt="Grug" className={cn('w-auto', sizes[size])} />
         </div>
         {quote && (
           <div className="relative bg-stone-dark rounded-rock p-4 max-w-xs">
@@ -65,8 +65,8 @@ export function GrugMascot({
           </div>
         )}
         {/* Grug face on right (facing left toward bubble) */}
-        <div className={cn('select-none flex-shrink-0', mobileSizes[size])}>
-          🗿
+        <div className="select-none flex-shrink-0">
+          <img src="/grug_avatar.png" alt="Grug" className={cn('w-auto', mobileSizes[size])} />
         </div>
       </div>
     </>

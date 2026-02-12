@@ -43,7 +43,7 @@ export function PinnedScribblesSection() {
   return (
     <section className="mb-12">
       <div className="text-center mb-6">
-        <h2 className="font-grug text-xl text-sand">🗿 GRUG FAVOURITE SCRIBBLES</h2>
+        <h2 className="font-grug text-xl text-sand flex items-center justify-center gap-2"><img src="/grug_avatar.png" alt="Grug" className="h-8 w-auto inline-block" /> GRUG FAVOURITE SCRIBBLES</h2>
         <p className="text-stone-light text-sm mt-2">Best cave wall writings. Grug proud.</p>
       </div>
 

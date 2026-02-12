@@ -73,7 +73,7 @@ export function NewsletterSignup({ variant = 'full', className }: NewsletterSign
     return (
       <div className={cn('bg-stone-dark/50 border border-stone-dark rounded-rock p-4', className)}>
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-2xl">🗿</span>
+          <img src="/grug_avatar.png" alt="Grug" className="h-8 w-auto" />
           <h3 className="font-grug text-sand text-sm">{newsletterText.heading}</h3>
         </div>
         <p className="text-stone-light text-xs mb-3">{newsletterText.subheading}</p>
@@ -113,7 +113,7 @@ export function NewsletterSignup({ variant = 'full', className }: NewsletterSign
   // Full variant (default)
   return (
     <div className={cn('bg-cave border-2 border-fire/20 rounded-rock p-6 md:p-8 text-center', className)}>
-      <span className="text-5xl block mb-4">🗿</span>
+      <img src="/grug_avatar.png" alt="Grug" className="h-16 w-auto mx-auto mb-4" />
       <h2 className="font-grug text-2xl text-sand mb-2">{newsletterText.heading}</h2>
       <p className="text-stone-light mb-6 max-w-md mx-auto font-grug-speech">
         {newsletterText.subheading}

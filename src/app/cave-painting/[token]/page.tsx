@@ -124,7 +124,7 @@ export default function SharedWishlistPage() {
         {/* Header */}
         <section className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="text-4xl">🗿</span>
+            <img src="/grug_avatar.png" alt="Grug" className="h-12 w-auto" />
             <h1 className="font-grug text-2xl md:text-4xl text-sand">
               {wishlist.name}
             </h1>

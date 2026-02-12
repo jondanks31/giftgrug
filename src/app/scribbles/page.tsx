@@ -29,7 +29,7 @@ export default async function ScribblesPage() {
       <div className="container mx-auto px-4 py-8 max-w-5xl">
         <section className="text-center mb-10">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="text-4xl">🗿</span>
+            <img src="/grug_avatar.png" alt="Grug" className="h-12 w-auto" />
             <h1 className="font-grug text-3xl md:text-4xl text-sand">SCRIBBLES</h1>
           </div>
           <GrugMascot size="md" customMessage="Grug scribble on cave wall. Man read. Man learn." />

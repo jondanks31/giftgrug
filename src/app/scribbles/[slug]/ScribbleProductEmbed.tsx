@@ -12,7 +12,7 @@ export async function ScribbleProductEmbed({ productId }: { productId: string })
   if (!data) {
     return (
       <div className="bg-stone-dark/30 rounded-stone p-4 border border-stone-dark/50">
-        <p className="text-stone-light text-sm">🗿 Grug try find product. Grug fail. Maybe product gone?</p>
+        <p className="text-stone-light text-sm flex items-center gap-2"><img src="/grug_avatar.png" alt="Grug" className="h-6 w-auto inline-block" /> Grug try find product. Grug fail. Maybe product gone?</p>
       </div>
     );
   }
@@ -41,7 +41,7 @@ export async function ScribbleProductEmbed({ productId }: { productId: string })
             <div>
               {data.is_grug_pick && (
                 <span className="inline-block text-xs bg-fire/20 text-fire px-2 py-0.5 rounded-full mb-2">
-                  🗿 Grug Pick
+                  <img src="/grug_avatar.png" alt="Grug" className="h-5 w-auto inline-block align-middle" /> Grug Pick
                 </span>
               )}
               <h4 className="font-grug text-lg text-sand leading-tight">{data.grug_name}</h4>

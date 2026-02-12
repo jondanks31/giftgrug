@@ -19,7 +19,7 @@ export default function AboutPage() {
       <div className="container mx-auto px-4 py-8 max-w-3xl">
         {/* Hero */}
         <section className="text-center mb-12">
-          <span className="text-6xl block">🗿</span>
+          <img src="/grug_avatar.png" alt="Grug" className="h-24 w-auto mx-auto" />
           
           <h1 className="font-grug text-3xl md:text-4xl text-sand mt-6 mb-4">
             THE GRUG STORY

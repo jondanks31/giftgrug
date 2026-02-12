@@ -38,16 +38,16 @@ export default function HomePage() {
       <Header />
 
       {/* ────────── HERO ────────── */}
-      <section className="pt-16 pb-12 md:pt-32 md:pb-24 text-center px-6">
+      <section className="pt-8 pb-8 md:pt-16 md:pb-16 text-center px-6">
         {/* Mascot with glow */}
         <div className="hero-enter inline-block">
-          <div className="mascot-glow mascot-float inline-block p-4">
-            <span className="text-7xl md:text-8xl block select-none">🗿</span>
+          <div className="inline-block">
+            <img src="/grug_avatar.png" alt="Grug" className="h-36 md:h-44 w-auto select-none" />
           </div>
         </div>
 
-        <h1 className="hero-enter-delay-1 font-grug text-4xl md:text-6xl text-sand leading-tight mt-5 md:mt-8 mb-4 md:mb-6">
-          Modern Life Too Complicated.
+        <h1 className="hero-enter-delay-1 font-grug text-4xl md:text-6xl text-sand leading-tight mt-2 md:mt-8 mb-3 md:mb-6">
+          Modern Life Hard.
           <br />
           <span className="text-fire">Grug Help Make Simple.</span>
         </h1>

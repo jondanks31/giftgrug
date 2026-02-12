@@ -144,7 +144,7 @@ export default function CavePage() {
         <Header />
         <div className="max-w-md mx-auto px-6 py-12">
           <section className="text-center mb-8">
-            <span className="text-5xl block mb-4">🗿</span>
+            <img src="/grug_avatar.png" alt="Grug" className="h-20 w-auto mx-auto mb-4" />
             <h1 className="font-grug text-2xl text-sand mb-2">Man Enter Cave</h1>
             <p className="text-stone-light text-sm">
               Sign in to save important dates and get reminders.

@@ -127,7 +127,7 @@ export function CavePaintings() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="font-grug text-xl text-sand flex items-center gap-2">
-          🗿 {wishlistText.cavePaintingsHeading}
+          <img src="/grug_avatar.png" alt="Grug" className="h-7 w-auto inline-block" /> {wishlistText.cavePaintingsHeading}
         </h2>
         <Button
           variant="secondary"
@@ -193,7 +193,7 @@ export function CavePaintings() {
                 >
                   <div className="flex-grow">
                     <p className="font-grug text-sand flex items-center gap-2">
-                      🗿 {wishlist.name}
+                      <img src="/grug_avatar.png" alt="Grug" className="h-6 w-auto inline-block" /> {wishlist.name}
                     </p>
                     <div className="flex items-center gap-3 text-sm text-stone-light">
                       {wishlist.recipient_name && (
